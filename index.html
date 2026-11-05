@@ -1,61 +1,39 @@
 <!DOCTYPE html>
 <html lang="ru">
-
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport"
-    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>SoloWay — ИИ-проводник без турагентств</title>
-
-  <!-- Tailwind CSS & FontAwesome Icons -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>SoloWay — Умный туризм без турагентств</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700;800&display=swap"
-    rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     * {
       box-sizing: border-box;
       -webkit-tap-highlight-color: transparent;
       font-family: 'Plus Jakarta Sans', sans-serif;
     }
-
-    html,
-    body {
+    html, body {
       height: 100%;
-      background-color: #050811;
-      color: #f8fafc;
-      overflow: hidden;
       margin: 0;
       padding: 0;
+      background-color: #090d16;
+      color: #f8fafc;
+      overflow: hidden;
     }
-
-    /* Scrollbar suppression */
     .no-scrollbar::-webkit-scrollbar {
       display: none;
     }
-
     .no-scrollbar {
       -ms-overflow-style: none;
       scrollbar-width: none;
     }
 
-    /* Animated GPS Pulse */
+    /* Animations */
     @keyframes pulse-ring {
-      0% {
-        transform: scale(0.7);
-        opacity: 0.9;
-      }
-
-      100% {
-        transform: scale(2.6);
-        opacity: 0;
-      }
+      0% { transform: scale(0.8); opacity: 0.8; }
+      100% { transform: scale(2.4); opacity: 0; }
     }
-
     .gps-pulse::before {
       content: '';
       position: absolute;
@@ -66,690 +44,507 @@
       z-index: -1;
     }
 
-    /* Laser Scanning Effect */
     @keyframes scan-laser {
-      0% {
-        top: 6%;
-        opacity: 0.8;
-      }
-
-      50% {
-        top: 90%;
-        opacity: 1;
-      }
-
-      100% {
-        top: 6%;
-        opacity: 0.8;
-      }
+      0% { top: 8%; opacity: 0.9; }
+      50% { top: 88%; opacity: 1; }
+      100% { top: 8%; opacity: 0.9; }
     }
-
     .laser-line {
       position: absolute;
-      left: 3%;
-      right: 3%;
+      left: 5%;
+      right: 5%;
       height: 3px;
       background: linear-gradient(90deg, transparent, #38bdf8, #10b981, #38bdf8, transparent);
-      box-shadow: 0 0 14px 3px rgba(56, 189, 248, 0.85);
-      animation: scan-laser 2.6s ease-in-out infinite;
-      z-index: 25;
+      box-shadow: 0 0 12px 2px rgba(56, 189, 248, 0.8);
+      animation: scan-laser 2.8s ease-in-out infinite;
+      z-index: 20;
     }
 
-    /* Floating AR HUD elements */
     @keyframes float-hud {
-
-      0%,
-      100% {
-        transform: translateY(0px);
-      }
-
-      50% {
-        transform: translateY(-7px);
-      }
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-6px); }
     }
-
     .ar-hud-card {
-      animation: float-hud 3.2s ease-in-out infinite;
+      animation: float-hud 3.5s ease-in-out infinite;
     }
 
-    /* Equalizer Animation for Audio Guide */
     @keyframes eq-bar {
-
-      0%,
-      100% {
-        height: 4px;
-      }
-
-      50% {
-        height: 18px;
-      }
+      0%, 100% { height: 4px; }
+      50% { height: 16px; }
     }
-
     .eq-anim span {
       display: inline-block;
       width: 3px;
       background-color: #38bdf8;
       border-radius: 2px;
-      animation: eq-bar 0.75s ease-in-out infinite;
+      animation: eq-bar 0.8s ease-in-out infinite;
     }
+    .eq-anim span:nth-child(2) { animation-delay: 0.2s; }
+    .eq-anim span:nth-child(3) { animation-delay: 0.4s; }
+    .eq-anim span:nth-child(4) { animation-delay: 0.1s; }
 
-    .eq-anim span:nth-child(2) {
-      animation-delay: 0.2s;
-    }
-
-    .eq-anim span:nth-child(3) {
-      animation-delay: 0.4s;
-    }
-
-    .eq-anim span:nth-child(4) {
-      animation-delay: 0.15s;
-    }
-
-    /* Desktop Smartphone Mock Frame */
+    /* Desktop Phone Frame Styling */
     @media (min-width: 640px) {
-      body.framed-mode {
+      body {
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
-        min-height: 100vh;
-        background: radial-gradient(circle at 50% 15%, #131d31 0%, #050811 85%);
-        padding: 18px;
+        justify-content: flex-start;
+        height: 100vh;
+        padding: 8px 16px;
+        background: radial-gradient(circle at 50% 20%, #1e293b 0%, #090d16 80%);
       }
-
       body.framed-mode #app-shell {
-        width: 395px;
-        height: 840px;
-        max-height: 94vh;
-        border-radius: 46px;
+        width: 390px;
+        height: calc(100vh - 72px);
+        max-height: 820px;
+        border-radius: 42px;
         border: 9px solid #1e293b;
-        box-shadow: 0 25px 65px -12px rgba(0, 0, 0, 0.9), 0 0 0 2px #334155;
+        box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.85), 0 0 0 2px #334155;
+        position: relative;
+        overflow: hidden;
+      }
+      body.fullscreen-mode #app-shell {
+        width: 100%;
+        max-width: 480px;
+        height: calc(100vh - 65px);
+        border: 1px solid #1e293b;
+        border-radius: 20px;
         position: relative;
         overflow: hidden;
       }
     }
 
-    /* Fullscreen mobile or responsive layout */
-    body.fullscreen-mode #app-shell {
-      width: 100%;
-      max-width: 460px;
-      height: calc(100vh - 68px);
-      margin: 0 auto;
-      border-radius: 0;
-      border: none;
-    }
-
+    /* Mobile Phones (Zero frame, full viewport) */
     @media (max-width: 639px) {
       #desktop-toolbar {
         display: none !important;
       }
-
+      body {
+        height: 100dvh;
+        padding: 0;
+      }
       #app-shell {
         width: 100vw !important;
         height: 100dvh !important;
-        max-width: none !important;
         border: none !important;
         border-radius: 0 !important;
       }
     }
   </style>
 </head>
-
 <body class="framed-mode">
 
-  <!-- Desktop Top Control Bar (Visible only on PC screens) -->
-  <div id="desktop-toolbar"
-    class="mb-3 flex items-center justify-between gap-4 bg-slate-900/90 border border-slate-800 px-5 py-2.5 rounded-full backdrop-blur-md shadow-2xl z-50">
-    <div class="flex items-center gap-2.5">
+  <!-- Desktop Top Control Bar -->
+  <div id="desktop-toolbar" class="mb-2 flex items-center justify-between gap-3 bg-slate-900/90 border border-slate-800 px-4 py-2 rounded-full backdrop-blur-md shadow-lg z-50 w-full max-w-xl">
+    <div class="flex items-center gap-2">
       <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
-      <span class="text-xs font-extrabold tracking-wider text-slate-200">SOLOWAY • ДЕМО ДЛЯ ЖЮРИ</span>
+      <span class="text-xs font-bold text-slate-200 tracking-wide">SOLOWAY • ДЕМО ДЛЯ ЖЮРИ</span>
     </div>
     <div class="flex items-center gap-2">
-      <button onclick="openPitchModal()"
-        class="text-xs bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 px-3.5 py-1.5 rounded-full font-bold transition flex items-center gap-1.5">
-        <i class="fa-solid fa-chart-line"></i> <span>Слайды / Питч (3 мин)</span>
+      <button onclick="toggleCityQuick()" class="text-xs bg-slate-800 hover:bg-slate-700 text-sky-400 px-3 py-1 rounded-full font-medium transition flex items-center gap-1">
+        <i class="fa-solid fa-earth-americas"></i> <span>Сменить город</span>
       </button>
-      <button onclick="toggleCityQuick()"
-        class="text-xs bg-slate-800 hover:bg-slate-700 text-sky-400 px-3 py-1.5 rounded-full font-semibold transition">
-        <i class="fa-solid fa-earth-americas mr-1"></i> Сменить город
-      </button>
-      <button onclick="toggleFrameMode()" id="frame-toggle-btn"
-        class="text-xs bg-sky-600 hover:bg-sky-500 text-white px-3.5 py-1.5 rounded-full font-bold transition">
-        <i class="fa-solid fa-expand mr-1"></i> На весь экран
+      <button onclick="toggleFrameMode()" id="frame-toggle-btn" class="text-xs bg-sky-600 hover:bg-sky-500 text-white px-3 py-1 rounded-full font-medium transition flex items-center gap-1">
+        <i class="fa-solid fa-expand"></i> <span>На весь экран</span>
       </button>
     </div>
   </div>
 
-  <!-- Smart Phone Application Shell -->
-  <div id="app-shell" class="bg-slate-950 flex flex-col justify-between select-none relative h-full">
+  <!-- Main Mobile App Shell -->
+  <div id="app-shell" class="bg-slate-950 flex flex-col justify-between select-none relative">
 
-    <!-- Top Status Bar & App Navigation Header -->
-    <header class="bg-slate-900/95 backdrop-blur-md border-b border-slate-800/80 px-4 pt-3.5 pb-3 z-30 shrink-0">
-
-      <!-- Simulated Device Status -->
-      <div class="flex items-center justify-between text-[11px] text-slate-400 font-semibold mb-2.5 px-0.5">
-        <span id="live-clock">10:15</span>
-        <div class="flex items-center gap-2">
-          <span
-            class="bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded text-[10px] font-bold flex items-center gap-1">
+    <!-- Header & City Selector -->
+    <header class="bg-slate-900/95 backdrop-blur-md border-b border-slate-800 px-4 pt-3 pb-2.5 z-30 shrink-0">
+      <!-- Simulated Status Bar -->
+      <div class="flex items-center justify-between text-[11px] text-slate-400 font-medium mb-2 px-1">
+        <span id="live-clock">10:45</span>
+        <div class="flex items-center gap-1.5">
+          <span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-1.5 py-0.2 rounded text-[10px] font-bold flex items-center gap-1">
             <i class="fa-solid fa-bolt text-[9px]"></i> 100% ОФЛАЙН
           </span>
-          <i class="fa-solid fa-wifi-slash text-slate-500 text-[11px]" title="Работает без роуминга"></i>
+          <i class="fa-solid fa-wifi-slash text-slate-500 text-[10px]" title="Работает без интернета"></i>
           <i class="fa-solid fa-battery-full text-emerald-400 text-xs"></i>
         </div>
       </div>
 
-      <!-- Brand Bar & Interactive City Switcher -->
+      <!-- City Switcher Bar -->
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-2.5">
-          <div
-            class="w-10 h-10 rounded-2xl bg-gradient-to-br from-sky-500 via-blue-600 to-indigo-700 flex items-center justify-center shadow-lg shadow-sky-500/25">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-sky-500 to-blue-700 flex items-center justify-center shadow-md shadow-sky-500/20">
             <i class="fa-solid fa-compass text-white text-lg"></i>
           </div>
           <div>
-            <div class="flex items-center gap-1.5">
-              <select id="city-select" onchange="changeDestination(this.value)"
-                class="bg-transparent text-white font-extrabold text-base focus:outline-none cursor-pointer pr-1">
-                <option value="istanbul" class="bg-slate-900 text-white font-medium">Стамбул, Турция</option>
-                <option value="turkestan" class="bg-slate-900 text-white font-medium">Туркестан & Алматы</option>
-                <option value="rome" class="bg-slate-900 text-white font-medium">Рим, Италия</option>
+            <div class="flex items-center gap-1">
+              <select id="city-select" onchange="changeDestination(this.value)" class="bg-transparent text-white font-extrabold text-sm focus:outline-none cursor-pointer pr-1">
+                <option value="istanbul" class="bg-slate-900 text-white">Стамбул, Турция</option>
+                <option value="turkestan" class="bg-slate-900 text-white">Туркестан & Алматы</option>
+                <option value="rome" class="bg-slate-900 text-white">Рим, Италия</option>
               </select>
               <i class="fa-solid fa-chevron-down text-[10px] text-sky-400 pointer-events-none"></i>
             </div>
-            <p class="text-[11px] text-slate-400 font-medium">SoloWay • Без турагентств</p>
+            <p class="text-[10px] text-slate-400 leading-none">SoloWay • Без турагентств</p>
           </div>
         </div>
 
-        <!-- Emergency Return to Hotel Action -->
-        <button onclick="triggerReturnToHotel()"
-          class="bg-rose-500/15 hover:bg-rose-500/25 active:scale-95 border border-rose-500/30 text-rose-300 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 transition">
+        <button onclick="triggerReturnToHotel()" class="bg-rose-500/15 hover:bg-rose-500/25 active:scale-95 border border-rose-500/30 text-rose-300 px-2.5 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 transition">
           <i class="fa-solid fa-house-chimney-user text-rose-400"></i>
           <span>В отель</span>
         </button>
       </div>
     </header>
 
-    <!-- MAIN SCROLLABLE CONTENT BODY -->
-    <main id="main-scroll" class="flex-1 overflow-y-auto no-scrollbar relative bg-slate-950 pb-24">
+    <!-- Scrollable Content Area -->
+    <main id="main-scroll" class="flex-1 overflow-y-auto no-scrollbar relative bg-slate-950 pb-20">
 
-      <!-- ==========================================
-           TAB 1: МАРШРУТ (SMART TIMELINE & SAVINGS)
-           ========================================== -->
-      <section id="tab-route" class="p-4 space-y-4">
-
-        <!-- Live Savings vs Agency Banner -->
-        <div
-          class="bg-gradient-to-br from-emerald-950/90 via-slate-900 to-slate-900 border border-emerald-500/35 rounded-2xl p-4 shadow-xl relative overflow-hidden">
+      <!-- TAB 1: МАРШРУТ (ROUTE BUILDER) -->
+      <section id="tab-route" class="p-4 space-y-3.5">
+        
+        <!-- Savings Banner -->
+        <div class="bg-gradient-to-r from-emerald-950/90 via-slate-900 to-slate-900 border border-emerald-500/30 rounded-2xl p-3.5 shadow-lg relative overflow-hidden">
           <div class="flex items-center justify-between">
             <div>
-              <span
-                class="text-[10px] uppercase tracking-wider font-extrabold text-emerald-400 bg-emerald-500/15 border border-emerald-500/30 px-2 py-0.5 rounded-md">
-                Экономия SoloWay
-              </span>
-              <h3 class="text-lg font-black text-white mt-1.5 flex items-baseline gap-2">
+              <span class="text-[10px] uppercase tracking-wider font-extrabold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-md">SoloWay Выгода</span>
+              <h3 class="text-base font-extrabold text-white mt-1 flex items-baseline gap-2">
                 <span id="saved-amount">Сэкономлено: $280</span>
                 <span class="text-xs font-normal text-slate-400 line-through" id="agency-price">Турфирма: $450</span>
               </h3>
-              <p class="text-xs text-slate-300 mt-1">Официальные билеты по госцене и проверенный транспорт без комиссий
-                гидов</p>
+              <p class="text-[11px] text-slate-300 mt-0.5" id="saved-desc">Прямой транспорт и входные билеты без наценок агентств</p>
             </div>
-            <div
-              class="w-12 h-12 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center shrink-0 ml-2">
-              <i class="fa-solid fa-piggy-bank text-emerald-400 text-2xl"></i>
+            <div class="w-10 h-10 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center shrink-0">
+              <i class="fa-solid fa-piggy-bank text-emerald-400 text-lg"></i>
             </div>
           </div>
         </div>
 
-        <!-- Dynamic Filter Controls -->
+        <!-- Filter Pills & Rain Toggle -->
         <div>
           <div class="flex items-center justify-between mb-2">
-            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Маршрут на сегодня</span>
-            <button onclick="toggleWeatherAdapt()" id="weather-btn"
-              class="text-xs bg-slate-900 hover:bg-slate-800 text-amber-300 border border-amber-500/30 px-2.5 py-1 rounded-lg font-bold flex items-center gap-1.5 transition active:scale-95 shadow">
-              <i class="fa-solid fa-cloud-rain text-xs"></i> <span>Идет дождь?</span>
+            <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Маршрут на сегодня</span>
+            <button onclick="toggleWeatherAdapt()" id="weather-btn" class="text-xs bg-slate-800 hover:bg-slate-700 text-amber-300 border border-amber-500/30 px-2.5 py-1 rounded-lg font-medium flex items-center gap-1 transition active:scale-95">
+              <i class="fa-solid fa-cloud-rain"></i> <span>Идет дождь?</span>
             </button>
           </div>
-
-          <div class="flex gap-2 overflow-x-auto no-scrollbar pb-1" id="vibe-filters">
-            <button onclick="setVibeFilter('all')" data-vibe="all"
-              class="vibe-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold bg-sky-500 text-white shadow-md shadow-sky-500/30 transition">
+          <div class="flex gap-1.5 overflow-x-auto no-scrollbar pb-1" id="vibe-filters">
+            <button onclick="setVibeFilter('all')" data-vibe="all" class="vibe-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold bg-sky-500 text-white shadow transition">
               ✨ Оптимальный
             </button>
-            <button onclick="setVibeFilter('secret')" data-vibe="secret"
-              class="vibe-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-900 text-slate-300 border border-slate-800 transition">
-              🤫 Без толп туристов
+            <button onclick="setVibeFilter('secret')" data-vibe="secret" class="vibe-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-900 text-slate-300 border border-slate-800 transition">
+              🤫 Без толп
             </button>
-            <button onclick="setVibeFilter('budget')" data-vibe="budget"
-              class="vibe-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-900 text-slate-300 border border-slate-800 transition">
+            <button onclick="setVibeFilter('budget')" data-vibe="budget" class="vibe-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-900 text-slate-300 border border-slate-800 transition">
               🪙 Бюджетно
             </button>
-            <button onclick="setVibeFilter('food')" data-vibe="food"
-              class="vibe-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-900 text-slate-300 border border-slate-800 transition">
-              🍜 Локальная еда
+            <button onclick="setVibeFilter('food')" data-vibe="food" class="vibe-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-900 text-slate-300 border border-slate-800 transition">
+              🍜 Местная еда
             </button>
           </div>
         </div>
 
-        <!-- Weather Adaptation Alert Box -->
-        <div id="rain-alert"
-          class="hidden bg-sky-950/85 border border-sky-500/50 rounded-2xl p-3.5 flex items-center justify-between text-xs text-sky-200 shadow-lg animate-fadeIn">
-          <div class="flex items-center gap-2.5">
-            <i class="fa-solid fa-umbrella text-sky-400 text-lg"></i>
-            <span><b>Погода учтена:</b> уличные парки заменены на старинные крытые пассажи и исторические
-              кофейни!</span>
+        <!-- Rain Mode Alert Box -->
+        <div id="rain-alert" class="hidden bg-sky-950/80 border border-sky-500/40 rounded-xl p-3 flex items-center justify-between text-xs text-sky-200">
+          <div class="flex items-center gap-2">
+            <i class="fa-solid fa-umbrella text-sky-400 text-base"></i>
+            <span>Маршрут адаптирован: замена на крытые галереи и колоритные чайные!</span>
           </div>
-          <button onclick="toggleWeatherAdapt()"
-            class="text-sky-400 font-extrabold ml-2 shrink-0 underline">Отмена</button>
+          <button onclick="toggleWeatherAdapt()" class="text-sky-400 font-bold ml-2">Отмена</button>
         </div>
 
-        <!-- Step-by-Step Interactive Timeline -->
-        <div id="timeline-container"
-          class="space-y-3 relative before:absolute before:top-4 before:bottom-4 before:left-5 before:w-0.5 before:bg-slate-800">
-          <!-- Populated dynamically via JS -->
+        <!-- Timeline Steps Container -->
+        <div id="timeline-container" class="space-y-3 relative before:absolute before:top-4 before:bottom-4 before:left-5 before:w-0.5 before:bg-slate-800">
+          <!-- Filled dynamically by JavaScript -->
         </div>
 
       </section>
 
-      <!-- ==========================================
-           TAB 2: НАВИГАТОР (OFFLINE MAP & AR VIEW)
-           ========================================== -->
+      <!-- TAB 2: НАВИГАТОР (2D MAP & AR LIVE VIEW) -->
       <section id="tab-nav" class="hidden h-full flex flex-col">
-
-        <!-- Sub-header Mode Switcher -->
         <div class="p-3 bg-slate-900 border-b border-slate-800 flex items-center justify-between gap-2">
           <div class="grid grid-cols-2 bg-slate-950 p-1 rounded-xl border border-slate-800 w-full">
-            <button onclick="switchNavMode('map')" id="btn-mode-map"
-              class="py-2 rounded-lg text-xs font-extrabold bg-sky-500 text-white shadow transition flex items-center justify-center gap-1.5">
+            <button onclick="switchNavMode('map')" id="btn-mode-map" class="py-1.5 rounded-lg text-xs font-bold bg-sky-500 text-white shadow transition flex items-center justify-center gap-1.5">
               <i class="fa-solid fa-map"></i> 2D Офлайн-карта
             </button>
-            <button onclick="switchNavMode('ar')" id="btn-mode-ar"
-              class="py-2 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition flex items-center justify-center gap-1.5">
+            <button onclick="switchNavMode('ar')" id="btn-mode-ar" class="py-1.5 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition flex items-center justify-center gap-1.5">
               <i class="fa-solid fa-camera-viewfinder"></i> AR Живой гид
             </button>
           </div>
         </div>
 
-        <!-- MODE A: Interactive Vector Offline Map -->
-        <div id="nav-map-view" class="relative flex-1 bg-[#09111e] overflow-hidden min-h-[490px]">
-
+        <!-- 2D Map View -->
+        <div id="nav-map-view" class="relative flex-1 bg-[#0c1424] overflow-hidden min-h-[460px]">
           <svg viewBox="0 0 400 500" class="w-full h-full object-cover">
-            <!-- River / Sea Contour -->
             <path d="M 0,80 Q 140,120 260,60 T 400,90 L 400,0 L 0,0 Z" fill="#082f49" />
-            <path d="M 0,85 Q 140,125 260,65 T 400,95" fill="none" stroke="#0ea5e9" stroke-width="2"
-              stroke-dasharray="6,6" opacity="0.6" />
-
-            <!-- Streets & Blocks -->
-            <rect x="20" y="130" width="110" height="90" rx="12" fill="#111c2d" stroke="#1e293b" stroke-width="2" />
-            <rect x="155" y="120" width="130" height="100" rx="12" fill="#0f291e" stroke="#14532d" stroke-width="1.5" />
-            <rect x="305" y="135" width="75" height="140" rx="12" fill="#111c2d" stroke="#1e293b" stroke-width="2" />
-            <rect x="25" y="250" width="140" height="120" rx="12" fill="#111c2d" stroke="#1e293b" stroke-width="2" />
-            <rect x="190" y="250" width="95" height="115" rx="12" fill="#111c2d" stroke="#1e293b" stroke-width="2" />
-            <rect x="40" y="395" width="210" height="80" rx="12" fill="#111c2d" stroke="#1e293b" stroke-width="2" />
-            <rect x="275" y="300" width="105" height="160" rx="12" fill="#111c2d" stroke="#1e293b" stroke-width="2" />
-
-            <!-- Roads -->
-            <path d="M 0,235 L 400,235" stroke="#1e293b" stroke-width="12" />
-            <path d="M 142,90 L 142,500" stroke="#1e293b" stroke-width="10" />
-            <path d="M 292,70 L 292,500" stroke="#1e293b" stroke-width="10" />
-            <path d="M 0,382 L 400,382" stroke="#1e293b" stroke-width="10" />
-
-            <!-- Safe Walking Path -->
-            <path d="M 142,410 L 142,235 L 220,235 L 220,170 L 292,170 L 292,105" fill="none" stroke="#38bdf8"
-              stroke-width="5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8,8" />
-
-            <!-- Danger Zone -->
-            <circle cx="85" cy="175" r="35" fill="rgba(244, 63, 94, 0.15)" stroke="#f43f5e" stroke-width="1.5"
-              stroke-dasharray="4,4" />
+            <path d="M 0,85 Q 140,125 260,65 T 400,95" fill="none" stroke="#0ea5e9" stroke-width="2" stroke-dasharray="6,6" opacity="0.5"/>
+            <rect x="20" y="130" width="110" height="90" rx="12" fill="#111c2d" stroke="#1e293b" stroke-width="2"/>
+            <rect x="155" y="120" width="130" height="100" rx="12" fill="#0f291e" stroke="#14532d" stroke-width="1.5"/>
+            <rect x="305" y="135" width="75" height="140" rx="12" fill="#111c2d" stroke="#1e293b" stroke-width="2"/>
+            <rect x="25" y="250" width="140" height="120" rx="12" fill="#111c2d" stroke="#1e293b" stroke-width="2"/>
+            <rect x="190" y="250" width="95" height="115" rx="12" fill="#111c2d" stroke="#1e293b" stroke-width="2"/>
+            <path d="M 0,235 L 400,235" stroke="#1e293b" stroke-width="12"/>
+            <path d="M 142,90 L 142,500" stroke="#1e293b" stroke-width="10"/>
+            <path d="M 292,70 L 292,500" stroke="#1e293b" stroke-width="10"/>
+            <path id="svg-route-path" d="M 142,410 L 142,235 L 220,235 L 220,170 L 292,170 L 292,105" fill="none" stroke="#38bdf8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8,8"/>
+            <circle cx="85" cy="175" r="35" fill="rgba(244, 63, 94, 0.15)" stroke="#f43f5e" stroke-width="1.5" stroke-dasharray="4,4"/>
           </svg>
 
-          <!-- Floating Legend -->
-          <div
-            class="absolute top-3 left-3 bg-slate-900/90 backdrop-blur-md border border-slate-800 rounded-xl px-3 py-2 text-[11px] space-y-1 shadow-lg">
-            <div class="flex items-center gap-2 text-sky-400 font-bold">
-              <span class="w-2.5 h-2.5 rounded-full bg-sky-400 inline-block"></span> Маршрут SoloWay (12 мин)
+          <!-- Floating Map Legend -->
+          <div class="absolute top-3 left-3 bg-slate-900/90 backdrop-blur-md border border-slate-800 rounded-xl px-3 py-1.5 text-[10px] space-y-1 shadow-lg">
+            <div class="flex items-center gap-1.5 text-sky-400 font-bold">
+              <span class="w-2 h-2 rounded-full bg-sky-400 inline-block"></span> Маршрут без такси
             </div>
-            <div class="flex items-center gap-2 text-rose-400 font-medium">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500 inline-block"></span> Зона наценок (+180%)
+            <div class="flex items-center gap-1.5 text-rose-400 font-semibold">
+              <span class="w-2 h-2 rounded-full bg-rose-500 inline-block"></span> Зона наценки для туристов
             </div>
           </div>
 
-          <!-- GPS User Pin -->
-          <div style="top: 76%; left: 35.5%;"
-            class="absolute -translate-x-1/2 -translate-y-1/2 z-20 flex flex-col items-center">
+          <!-- GPS Current Location Dot -->
+          <div style="top: 76%; left: 35.5%;" class="absolute -translate-x-1/2 -translate-y-1/2 z-20 flex flex-col items-center">
             <div class="w-5 h-5 rounded-full bg-sky-400 border-2 border-white shadow-lg gps-pulse"></div>
-            <span
-              class="mt-1 bg-slate-900/95 text-white text-[10px] font-bold px-2 py-0.5 rounded-full border border-slate-700">Вы
-              здесь</span>
+            <span class="mt-1 bg-slate-900/95 text-white text-[9px] font-extrabold px-2 py-0.5 rounded-full border border-slate-700">Вы здесь</span>
           </div>
 
-          <!-- POI 1: Public Transit Stop -->
-          <button onclick="selectMapPoi('transit')" style="top: 46%; left: 35.5%;"
-            class="absolute -translate-x-1/2 -translate-y-1/2 group z-20 active:scale-95 transition">
-            <div
-              class="w-9 h-9 rounded-full bg-indigo-600 hover:bg-indigo-500 border-2 border-white shadow-xl flex items-center justify-center text-white">
+          <!-- Interactive Pins -->
+          <button onclick="selectMapPoi('transit')" style="top: 46%; left: 35.5%;" class="absolute -translate-x-1/2 -translate-y-1/2 z-20 group">
+            <div class="w-9 h-9 rounded-full bg-indigo-600 border-2 border-white shadow-lg flex items-center justify-center text-white transition transform group-active:scale-95">
               <i class="fa-solid fa-bus text-xs"></i>
             </div>
-            <span
-              class="block mt-0.5 bg-slate-900/95 text-indigo-300 text-[10px] font-bold px-2 py-0.5 rounded-md border border-indigo-500/40 whitespace-nowrap">Остановка
-              трамвая T1</span>
+            <span id="pin-badge-transit" class="block mt-0.5 bg-slate-900/95 text-indigo-300 text-[10px] font-bold px-1.5 py-0.5 rounded-md border border-indigo-500/40 whitespace-nowrap">Транспорт</span>
           </button>
 
-          <!-- POI 2: Secret Bakery -->
-          <button onclick="selectMapPoi('cafe')" style="top: 33%; left: 55%;"
-            class="absolute -translate-x-1/2 -translate-y-1/2 group z-20 active:scale-95 transition">
-            <div
-              class="w-9 h-9 rounded-full bg-emerald-600 hover:bg-emerald-500 border-2 border-white shadow-xl flex items-center justify-center text-white">
+          <button onclick="selectMapPoi('cafe')" style="top: 33%; left: 55%;" class="absolute -translate-x-1/2 -translate-y-1/2 z-20 group">
+            <div class="w-9 h-9 rounded-full bg-emerald-600 border-2 border-white shadow-lg flex items-center justify-center text-white transition transform group-active:scale-95">
               <i class="fa-solid fa-mug-hot text-xs"></i>
             </div>
-            <span
-              class="block mt-0.5 bg-slate-900/95 text-emerald-300 text-[10px] font-bold px-2 py-0.5 rounded-md border border-emerald-500/40 whitespace-nowrap">Секретная
-              пекарня (-60%)</span>
+            <span id="pin-badge-cafe" class="block mt-0.5 bg-slate-900/95 text-emerald-300 text-[10px] font-bold px-1.5 py-0.5 rounded-md border border-emerald-500/40 whitespace-nowrap">Местная еда</span>
           </button>
 
-          <!-- POI 3: Tourist Trap Warning -->
-          <button onclick="selectMapPoi('trap')" style="top: 35%; left: 21%;"
-            class="absolute -translate-x-1/2 -translate-y-1/2 group z-20 active:scale-95 transition">
-            <div
-              class="w-8 h-8 rounded-full bg-rose-600 hover:bg-rose-500 border-2 border-white shadow-xl flex items-center justify-center text-white">
+          <button onclick="selectMapPoi('trap')" style="top: 35%; left: 21%;" class="absolute -translate-x-1/2 -translate-y-1/2 z-20 group">
+            <div class="w-8 h-8 rounded-full bg-rose-600 border-2 border-white shadow-lg flex items-center justify-center text-white transition transform group-active:scale-95">
               <i class="fa-solid fa-triangle-exclamation text-xs"></i>
             </div>
-            <span
-              class="block mt-0.5 bg-rose-950/95 text-rose-300 text-[10px] font-bold px-1.5 py-0.5 rounded-md border border-rose-500/40 whitespace-nowrap">Ловушка</span>
+            <span class="block mt-0.5 bg-rose-950/95 text-rose-300 text-[10px] font-bold px-1.5 py-0.5 rounded-md border border-rose-500/40 whitespace-nowrap">Ловушка</span>
           </button>
 
-          <!-- POI 4: Panoramic Viewpoint -->
-          <button onclick="selectMapPoi('viewpoint')" style="top: 20%; left: 73%;"
-            class="absolute -translate-x-1/2 -translate-y-1/2 group z-20 active:scale-95 transition">
-            <div
-              class="w-9 h-9 rounded-full bg-amber-500 hover:bg-amber-400 border-2 border-white shadow-xl flex items-center justify-center text-slate-950">
+          <button onclick="selectMapPoi('viewpoint')" style="top: 20%; left: 73%;" class="absolute -translate-x-1/2 -translate-y-1/2 z-20 group">
+            <div class="w-9 h-9 rounded-full bg-amber-500 border-2 border-white shadow-lg flex items-center justify-center text-slate-950 transition transform group-active:scale-95">
               <i class="fa-solid fa-camera text-xs"></i>
             </div>
-            <span
-              class="block mt-0.5 bg-slate-900/95 text-amber-300 text-[10px] font-bold px-2 py-0.5 rounded-md border border-amber-500/40 whitespace-nowrap">Панорама
-              (0 ₸)</span>
+            <span id="pin-badge-view" class="block mt-0.5 bg-slate-900/95 text-amber-300 text-[10px] font-bold px-1.5 py-0.5 rounded-md border border-amber-500/40 whitespace-nowrap">Панорама</span>
           </button>
 
-          <!-- Bottom Sheet POI Details Card -->
-          <div id="map-poi-sheet"
-            class="absolute bottom-3 left-3 right-3 bg-slate-900/95 backdrop-blur-md border border-slate-700/80 rounded-2xl p-3.5 shadow-2xl z-30 transition-all">
+          <!-- Bottom POI Card -->
+          <div id="map-poi-sheet" class="absolute bottom-3 left-3 right-3 bg-slate-900/95 backdrop-blur-md border border-slate-700/80 rounded-2xl p-3 shadow-2xl z-30">
             <div class="flex items-start justify-between gap-2">
               <div>
-                <span id="poi-badge"
-                  class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300">Остановка
-                  транспорта</span>
-                <h4 id="poi-title" class="text-sm font-extrabold text-white mt-1">Остановка Трамвая T1 (Султанахмет)
-                </h4>
-                <p id="poi-desc" class="text-xs text-slate-300 mt-1">Не берите такси за $25! Скоростной трамвай T1
-                  довезет без пробок. Оплата обычной банковской картой на турникете ($0.85).</p>
+                <span id="poi-badge" class="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300">Общественный транспорт</span>
+                <h4 id="poi-title" class="text-xs font-bold text-white mt-1">Остановка скоростного трамвая</h4>
+                <p id="poi-desc" class="text-[11px] text-slate-300 mt-1 leading-snug">Садитесь без наценок частных таксистов. Оплата бесконтактной картой.</p>
               </div>
               <div class="text-right shrink-0">
-                <span id="poi-dist" class="text-xs font-black text-sky-400 block">180 м</span>
+                <span id="poi-dist" class="text-xs font-extrabold text-sky-400 block">180 м</span>
                 <span class="text-[10px] text-slate-400">2 мин пешком</span>
               </div>
             </div>
-            <div class="mt-3 pt-2.5 border-t border-slate-800 flex items-center justify-between text-xs">
-              <span id="poi-tip" class="text-emerald-400 font-semibold"><i
-                  class="fa-solid fa-check-circle mr-1"></i>Интервал движения 3 мин</span>
-              <button onclick="switchNavMode('ar')"
-                class="bg-sky-500 hover:bg-sky-400 text-white font-bold px-3 py-1 rounded-lg transition flex items-center gap-1">
-                <span>В режим AR</span> <i class="fa-solid fa-arrow-right text-[10px]"></i>
+            <div class="mt-2.5 pt-2 border-t border-slate-800 flex items-center justify-between text-xs">
+              <span id="poi-tip" class="text-emerald-400 font-semibold text-[11px]"><i class="fa-solid fa-check-circle mr-1"></i>Оплата на турникете</span>
+              <button onclick="switchNavMode('ar')" class="bg-sky-500 hover:bg-sky-400 text-white font-bold px-2.5 py-1 rounded-lg text-xs transition">
+                Показать в AR <i class="fa-solid fa-arrow-right ml-1"></i>
               </button>
             </div>
           </div>
         </div>
 
-        <!-- MODE B: AR Live Camera Viewfinder -->
-        <div id="nav-ar-view"
-          class="hidden relative flex-1 bg-slate-900 overflow-hidden min-h-[490px] flex flex-col justify-between p-4">
-          <video id="ar-video" autoplay playsinline muted
-            class="absolute inset-0 w-full h-full object-cover hidden"></video>
-          <div id="ar-fallback-bg" class="absolute inset-0 bg-cover bg-center transition-all duration-700"
-            style="background-image: linear-gradient(to bottom, rgba(15,23,42,0.35), rgba(15,23,42,0.9)), url('https://images.unsplash.com/photo-1527838832700-5059252407fa?auto=format&fit=crop&w=900&q=80');">
-          </div>
+        <!-- AR Mode View -->
+        <div id="nav-ar-view" class="hidden relative flex-1 bg-slate-900 overflow-hidden min-h-[460px] flex flex-col justify-between p-4">
+          <video id="ar-video" autoplay playsinline muted class="absolute inset-0 w-full h-full object-cover hidden"></video>
+          <div id="ar-fallback-bg" class="absolute inset-0 bg-cover bg-center" style="background-image: linear-gradient(to bottom, rgba(15,23,42,0.3), rgba(15,23,42,0.85)), url('https://images.unsplash.com/photo-1527838832700-5059252407fa?auto=format&fit=crop&w=900&q=80');"></div>
 
-          <!-- Top AR Status Bar -->
-          <div
-            class="relative z-20 flex items-center justify-between bg-slate-950/80 backdrop-blur-md border border-white/15 rounded-2xl px-3.5 py-2">
+          <div class="relative z-20 flex items-center justify-between bg-slate-950/75 backdrop-blur-md border border-white/15 rounded-2xl px-3.5 py-2">
             <div class="flex items-center gap-2">
               <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
-              <span class="text-xs font-bold text-white">AR Пространственный ориентир</span>
+              <span class="text-xs font-bold text-white">AR Офлайн-навигатор</span>
             </div>
-            <button onclick="startRealCamera()" id="cam-btn"
-              class="text-[11px] bg-white/10 hover:bg-white/20 text-sky-300 px-2.5 py-1 rounded-lg font-bold border border-white/10 transition">
+            <button onclick="startRealCamera()" id="cam-btn" class="text-[11px] bg-white/10 hover:bg-white/20 text-sky-300 px-2.5 py-1 rounded-lg font-semibold border border-white/10 transition">
               <i class="fa-solid fa-video mr-1"></i> Вкл. камеру
             </button>
           </div>
 
-          <!-- Floating 3D AR Spatial Overlays -->
-          <div class="relative z-20 my-auto space-y-4 py-3">
-
-            <!-- AR Marker 1: Authentic Spot -->
-            <div
-              class="ar-hud-card ml-2 max-w-[260px] bg-slate-950/85 backdrop-blur-md border-l-4 border-emerald-400 rounded-2xl p-3 shadow-2xl">
-              <div class="flex items-center justify-between text-[10px] text-emerald-400 font-extrabold uppercase">
+          <!-- AR Floating Spatial Cards -->
+          <div class="relative z-20 my-auto space-y-3.5">
+            <div class="ar-hud-card ml-2 max-w-[260px] bg-slate-950/90 backdrop-blur-md border-l-4 border-emerald-400 rounded-2xl p-3 shadow-2xl">
+              <div class="flex items-center justify-between text-[10px] text-emerald-400 font-bold uppercase">
                 <span><i class="fa-solid fa-location-arrow mr-1"></i> Прямо 65 м</span>
-                <span>Рейтинг: 4.9★</span>
+                <span>Местные: 4.9★</span>
               </div>
-              <p class="text-sm font-extrabold text-white mt-0.5">Пекарня & Чайная местных</p>
-              <p class="text-[11px] text-slate-300 mt-0.5">Горячий симит и чай за $1.20 без наценки. Вход через арку
-                слева.</p>
+              <p id="ar-card-title" class="text-xs font-bold text-white mt-0.5">Пекарня и чайная местных жителей</p>
+              <p id="ar-card-desc" class="text-[11px] text-slate-300 mt-0.5">Честные цены без туристической надбавки.</p>
             </div>
 
-            <!-- AR Marker 2: Overpriced Warning -->
-            <div
-              class="ar-hud-card ml-auto mr-1 max-w-[250px] bg-rose-950/90 backdrop-blur-md border-l-4 border-rose-500 rounded-2xl p-3 shadow-2xl"
-              style="animation-delay: 1.1s;">
-              <div class="flex items-center justify-between text-[10px] text-rose-300 font-extrabold uppercase">
+            <div class="ar-hud-card ml-auto mr-1 max-w-[250px] bg-rose-950/90 backdrop-blur-md border-l-4 border-rose-500 rounded-2xl p-3 shadow-2xl" style="animation-delay: 1.2s;">
+              <div class="flex items-center justify-between text-[10px] text-rose-300 font-bold uppercase">
                 <span><i class="fa-solid fa-ban mr-1"></i> Справа 30 м</span>
-                <span>Ловушка</span>
+                <span>Завышенные цены</span>
               </div>
-              <p class="text-sm font-extrabold text-white mt-0.5">Осторожно: Зазывалы!</p>
-              <p class="text-[11px] text-rose-200 mt-0.5">В чеки тайно включают сбор за сервис 25%.</p>
+              <p class="text-xs font-bold text-white mt-0.5">Осторожно: Зазывалы!</p>
+              <p class="text-[11px] text-rose-200 mt-0.5">Скрытый сбор за сервис +25% в чеке.</p>
             </div>
 
-            <!-- Dynamic Direction Arrow -->
-            <div class="flex flex-col items-center justify-center pt-2">
-              <div
-                class="w-16 h-16 rounded-full bg-sky-500/30 border-2 border-sky-400 flex items-center justify-center shadow-[0_0_25px_rgba(56,189,248,0.7)] animate-bounce">
-                <i class="fa-solid fa-arrow-up text-2xl text-white"></i>
+            <!-- Direction Pointer -->
+            <div class="flex flex-col items-center justify-center pt-1">
+              <div class="w-14 h-14 rounded-full bg-sky-500/30 border-2 border-sky-400 flex items-center justify-center shadow-[0_0_20px_rgba(56,189,248,0.5)] animate-bounce">
+                <i class="fa-solid fa-arrow-up text-xl text-white"></i>
               </div>
-              <span
-                class="mt-1 text-xs font-black text-white bg-slate-950/85 px-3 py-1 rounded-full border border-sky-500/40">Идите
-                прямо 110м до станции метро</span>
+              <span id="ar-nav-cue" class="mt-1 text-[11px] font-extrabold text-white bg-slate-950/80 px-3 py-1 rounded-full border border-sky-500/40">Идите прямо 120м к остановке</span>
             </div>
-
           </div>
 
-          <!-- Bottom Audio Guide Bar -->
-          <div
-            class="relative z-20 bg-slate-950/95 backdrop-blur-md border border-slate-800 rounded-2xl p-3 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-              <button onclick="toggleAudioGuide('История древнего квартала и цистерн')"
-                class="w-10 h-10 rounded-xl bg-sky-500 text-white flex items-center justify-center shadow">
-                <i class="fa-solid fa-headphones text-lg"></i>
+          <div class="relative z-20 bg-slate-950/90 backdrop-blur-md border border-slate-800 rounded-2xl p-2.5 flex items-center justify-between">
+            <div class="flex items-center gap-2.5">
+              <button onclick="playCurrentCityAudioStory()" class="w-9 h-9 rounded-xl bg-sky-500 text-white flex items-center justify-center shadow">
+                <i class="fa-solid fa-headphones text-base"></i>
               </button>
               <div>
-                <span class="text-[10px] text-sky-400 font-extrabold uppercase block">Автогид по геолокации</span>
-                <p class="text-xs font-bold text-white">Вы проходите: Старый квартал</p>
+                <span class="text-[9px] text-sky-400 font-bold uppercase block">Геолокационный аудиогид</span>
+                <p id="ar-audio-title" class="text-xs font-bold text-white truncate max-w-[190px]">Исторический квартал</p>
               </div>
             </div>
-            <span class="text-[11px] text-slate-400 font-mono">Слушать (1:45)</span>
+            <button onclick="playCurrentCityAudioStory()" class="text-[11px] text-sky-400 font-bold">Слушать</button>
           </div>
         </div>
-
       </section>
 
-      <!-- ==========================================
-           TAB 3: АНТИ-ОБМАН (AI PRICE & MENU SCANNER)
-           ========================================== -->
-      <section id="tab-scanner" class="hidden p-4 space-y-4">
-
+      <!-- TAB 3: АНТИ-ОБМАН (AI SCANNER & FAIR PRICE) -->
+      <section id="tab-scanner" class="hidden p-4 space-y-3.5">
         <div class="flex items-center justify-between">
           <div>
-            <h2 class="text-base font-black text-white">SoloWay Анти-обман</h2>
-            <p class="text-xs text-slate-400">Сканирование меню, ценников и счетчиков такси</p>
+            <h2 class="text-sm font-extrabold text-white">AI-Сканер честных цен</h2>
+            <p class="text-[11px] text-slate-400">Наведите камеру на меню, счет или ценник</p>
           </div>
-          <span
-            class="bg-sky-500/15 text-sky-300 border border-sky-500/30 text-[11px] font-bold px-2.5 py-1 rounded-lg">
-            Офлайн ИИ OCR
+          <span class="bg-sky-500/15 text-sky-300 border border-sky-500/30 text-[10px] font-bold px-2 py-0.5 rounded-lg">
+            Офлайн OCR + TTS
           </span>
         </div>
 
-        <!-- Presets Buttons -->
-        <div class="grid grid-cols-3 gap-2">
-          <button onclick="setScannerPreset('menu')" id="scan-btn-menu"
-            class="scan-preset-btn py-2.5 px-2 rounded-xl text-xs font-bold bg-sky-500 text-white shadow-md transition text-center">
+        <!-- Presets -->
+        <div class="grid grid-cols-3 gap-1.5">
+          <button onclick="setScannerPreset('menu')" id="scan-btn-menu" class="scan-preset-btn py-2 px-1 rounded-xl text-xs font-bold bg-sky-500 text-white shadow transition text-center">
             🍽️ Меню кафе
           </button>
-          <button onclick="setScannerPreset('taxi')" id="scan-btn-taxi"
-            class="scan-preset-btn py-2.5 px-2 rounded-xl text-xs font-bold bg-slate-900 text-slate-300 border border-slate-800 transition text-center">
+          <button onclick="setScannerPreset('taxi')" id="scan-btn-taxi" class="scan-preset-btn py-2 px-1 rounded-xl text-xs font-bold bg-slate-900 text-slate-300 border border-slate-800 transition text-center">
             🚕 Тариф такси
           </button>
-          <button onclick="setScannerPreset('bazaar')" id="scan-btn-bazaar"
-            class="scan-preset-btn py-2.5 px-2 rounded-xl text-xs font-bold bg-slate-900 text-slate-300 border border-slate-800 transition text-center">
+          <button onclick="setScannerPreset('bazaar')" id="scan-btn-bazaar" class="scan-preset-btn py-2 px-1 rounded-xl text-xs font-bold bg-slate-900 text-slate-300 border border-slate-800 transition text-center">
             🏺 Базар / Чек
           </button>
         </div>
 
-        <!-- Laser Scanner Viewfinder Box -->
-        <div
-          class="relative h-48 rounded-2xl overflow-hidden border-2 border-slate-800 bg-slate-900 shadow-inner flex flex-col justify-between p-4">
+        <!-- Scanner Viewfinder -->
+        <div class="relative h-44 rounded-2xl overflow-hidden border-2 border-slate-800 bg-slate-900 shadow-inner flex flex-col justify-between p-3.5">
           <div class="laser-line"></div>
-
+          
           <div class="flex justify-between">
-            <div class="w-6 h-6 border-t-2 border-l-2 border-sky-400 rounded-tl-md"></div>
-            <div class="w-6 h-6 border-t-2 border-r-2 border-sky-400 rounded-tr-md"></div>
+            <div class="w-5 h-5 border-t-2 border-l-2 border-sky-400 rounded-tl-md"></div>
+            <div class="w-5 h-5 border-t-2 border-r-2 border-sky-400 rounded-tr-md"></div>
           </div>
 
-          <div
-            class="my-auto text-center bg-slate-950/85 backdrop-blur-md border border-slate-700/80 rounded-xl p-3 mx-auto max-w-[92%]">
-            <p id="scan-foreign-title" class="text-xs font-mono text-amber-300 tracking-wide">📜 ОРИГИНАЛ: "Kuzu Şiş
-              Kebap + Servis Ücreti — 950 TL"</p>
-            <p id="scan-translated-title" class="text-sm font-black text-white mt-1">Шашлык из ягненка + скрытый сбор (≈
-              14 200 ₸ / $28)</p>
+          <div class="my-auto text-center bg-slate-950/90 backdrop-blur-md border border-slate-700/80 rounded-xl p-2.5 mx-auto max-w-[95%]">
+            <p id="scan-foreign-title" class="text-[11px] font-mono text-amber-300 tracking-wide">📜 ОРИГИНАЛ: "Kuzu Şiş Kebap + Servis Ücreti — 950 TL"</p>
+            <p id="scan-translated-title" class="text-xs font-extrabold text-white mt-1">Шашлык + скрытый сбор (≈ 14 200 ₸ / $28)</p>
           </div>
 
           <div class="flex justify-between">
-            <div class="w-6 h-6 border-b-2 border-l-2 border-sky-400 rounded-bl-md"></div>
-            <div class="w-6 h-6 border-b-2 border-r-2 border-sky-400 rounded-br-md"></div>
+            <div class="w-5 h-5 border-b-2 border-l-2 border-sky-400 rounded-bl-md"></div>
+            <div class="w-5 h-5 border-b-2 border-r-2 border-sky-400 rounded-br-md"></div>
           </div>
         </div>
 
-        <!-- AI Verdict & Price Check Card -->
-        <div id="scan-result-card" class="bg-slate-900 border border-slate-800 rounded-2xl p-4 space-y-3 shadow-lg">
+        <!-- Verdict Card -->
+        <div id="scan-result-card" class="bg-slate-900 border border-slate-800 rounded-2xl p-3.5 space-y-2.5">
           <div class="flex items-center justify-between">
-            <span id="scan-verdict-badge"
-              class="px-2.5 py-1 rounded-lg text-xs font-black bg-rose-500/20 text-rose-400 border border-rose-500/30">
+            <span id="scan-verdict-badge" class="px-2 py-0.5 rounded-lg text-[10px] font-extrabold bg-rose-500/20 text-rose-400 border border-rose-500/30">
               ⚠️ НАЦЕНКА ДЛЯ ТУРИСТОВ x2.5
             </span>
             <span id="scan-local-price" class="text-xs font-bold text-emerald-400">Норма: 380 TL ($11)</span>
           </div>
 
           <p id="scan-explanation" class="text-xs text-slate-300 leading-relaxed">
-            В этом заведении туристам дают отдельное меню с завышенным прайсом. В 150 метрах за углом местные жители
-            обедают тем же блюдом в 2.5 раза дешевле, а «Servis Ücreti» (15%) здесь добавлен незаконно.
+            В заведении туристическое меню. В 150 метрах за углом местные жители обедают тем же блюдом в 2.5 раза дешевле.
           </p>
 
-          <!-- Native Bargaining Phrase with Text-to-Speech -->
+          <!-- Bargaining / Protection Phrase Box with REAL TTS -->
           <div class="bg-slate-950 border border-slate-800 rounded-xl p-3">
             <div class="flex items-center justify-between mb-1">
-              <span class="text-[10px] font-bold uppercase text-sky-400">Фраза для защиты от обмана</span>
-              <button onclick="speakPhrase()"
-                class="text-xs text-sky-400 hover:text-sky-300 font-bold flex items-center gap-1 active:scale-95 transition">
-                <i class="fa-solid fa-volume-high"></i> <span>Озвучить</span>
+              <span class="text-[10px] font-bold uppercase text-sky-400">Озвучить местным жителям / официанту</span>
+              <button onclick="speakCurrentPhrase()" class="text-xs bg-sky-500/20 hover:bg-sky-500/30 text-sky-300 border border-sky-500/30 px-2 py-0.5 rounded-lg font-bold flex items-center gap-1 active:scale-95 transition">
+                <i class="fa-solid fa-volume-high"></i> <span id="tts-btn-label">Озвучить</span>
               </button>
             </div>
-            <p id="scan-phrase-foreign" class="text-sm font-black text-white">"Yerel menüyü görebilir miyim lütfen?"</p>
-            <p id="scan-phrase-phonetic" class="text-xs text-amber-300 mt-0.5">[Йерель менюйю гёребилир мийим лютфен?]
-            </p>
-            <p id="scan-phrase-ru" class="text-[11px] text-slate-400 mt-0.5">Перевод: «Покажите, пожалуйста, меню для
-              местных жителей»</p>
+            <p id="scan-phrase-foreign" class="text-xs font-extrabold text-white">"Yerel menüyü görebilir miyim lütfen?"</p>
+            <p id="scan-phrase-phonetic" class="text-[11px] text-amber-300 mt-0.5">[Йерель менюйю гёребилир мийим лютфен?]</p>
+            <p id="scan-phrase-ru" class="text-[10px] text-slate-400 mt-0.5">Перевод: «Покажите, пожалуйста, меню для местных жителей»</p>
           </div>
         </div>
 
       </section>
 
-      <!-- ==========================================
-           TAB 4: ПОМОЩНИК (AI CONCIERGE & PITCH MODE)
-           ========================================== -->
-      <section id="tab-assistant" class="hidden p-4 space-y-4">
-
-        <!-- Pitch Deck / Jury Button -->
-        <button onclick="openPitchModal()"
-          class="w-full bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:opacity-95 text-slate-950 font-black py-3 px-4 rounded-2xl text-xs flex items-center justify-between shadow-lg shadow-amber-500/20 active:scale-95 transition">
-          <div class="flex items-center gap-2.5">
-            <i class="fa-solid fa-trophy text-base"></i>
-            <span class="text-left">
-              <span class="block uppercase tracking-wider text-[10px] text-slate-900 font-bold leading-tight">Для жюри и
-                инвесторов</span>
-              <span class="text-sm">Открыть презентацию и бизнес-модель</span>
-            </span>
-          </div>
-          <i class="fa-solid fa-arrow-right"></i>
-        </button>
-
-        <!-- Offline Autonomy Survival Tiles -->
+      <!-- TAB 4: ПОМОЩНИК (AI CONCIERGE & EMERGENCY SOS) -->
+      <section id="tab-assistant" class="hidden p-4 space-y-3.5">
+        
         <div>
-          <h2 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Безопасность и автономность</h2>
+          <h2 class="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2">Безопасность 24/7 без интернета</h2>
           <div class="grid grid-cols-3 gap-2">
-            <button onclick="triggerReturnToHotel()"
-              class="bg-slate-900 hover:bg-slate-800 active:scale-95 border border-slate-800 rounded-2xl p-3 text-left transition">
-              <div class="w-8 h-8 rounded-xl bg-sky-500/20 text-sky-400 flex items-center justify-center mb-2">
+            <button onclick="triggerReturnToHotel()" class="bg-slate-900 hover:bg-slate-800 active:scale-95 border border-slate-800 rounded-2xl p-2.5 text-left transition">
+              <div class="w-7 h-7 rounded-lg bg-sky-500/20 text-sky-400 flex items-center justify-center mb-1.5 text-xs">
                 <i class="fa-solid fa-route"></i>
               </div>
-              <p class="text-xs font-bold text-white">Я потерялся</p>
-              <p class="text-[10px] text-slate-400 mt-0.5">Путь в отель</p>
+              <p class="text-xs font-bold text-white leading-tight">Я потерялся</p>
+              <p class="text-[9px] text-slate-400 mt-0.5">Офлайн-путь</p>
             </button>
 
-            <button onclick="openPhrasebookModal()"
-              class="bg-slate-900 hover:bg-slate-800 active:scale-95 border border-slate-800 rounded-2xl p-3 text-left transition">
-              <div class="w-8 h-8 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center mb-2">
+            <button onclick="openPhrasebookModal()" class="bg-slate-900 hover:bg-slate-800 active:scale-95 border border-slate-800 rounded-2xl p-2.5 text-left transition">
+              <div class="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center mb-1.5 text-xs">
                 <i class="fa-solid fa-language"></i>
               </div>
-              <p class="text-xs font-bold text-white">Разговорник</p>
-              <p class="text-[10px] text-slate-400 mt-0.5">Озвучка офлайн</p>
+              <p class="text-xs font-bold text-white leading-tight">Разговорник</p>
+              <p class="text-[9px] text-slate-400 mt-0.5">Озвучка TTS</p>
             </button>
 
-            <button onclick="askAiQuestion('sos')"
-              class="bg-slate-900 hover:bg-slate-800 active:scale-95 border border-rose-500/30 rounded-2xl p-3 text-left transition">
-              <div class="w-8 h-8 rounded-xl bg-rose-500/20 text-rose-400 flex items-center justify-center mb-2">
+            <button onclick="askAiQuestion('sos')" class="bg-slate-900 hover:bg-slate-800 active:scale-95 border border-rose-500/30 rounded-2xl p-2.5 text-left transition">
+              <div class="w-7 h-7 rounded-lg bg-rose-500/20 text-rose-400 flex items-center justify-center mb-1.5 text-xs">
                 <i class="fa-solid fa-kit-medical"></i>
               </div>
-              <p class="text-xs font-bold text-white">SOS & Врачи</p>
-              <p class="text-[10px] text-slate-400 mt-0.5">Дежурные точки</p>
+              <p class="text-xs font-bold text-white leading-tight">SOS & Аптеки</p>
+              <p class="text-[9px] text-slate-400 mt-0.5">Экстренно</p>
             </button>
           </div>
         </div>
 
-        <!-- AI Concierge Chat Box -->
+        <!-- Chat Container -->
         <div class="bg-slate-900 border border-slate-800 rounded-2xl flex flex-col h-[340px] overflow-hidden">
-          <div class="px-3.5 py-2.5 bg-slate-950/60 border-b border-slate-800 flex items-center justify-between">
-            <div class="flex items-center gap-2">
-              <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-              <span class="text-xs font-bold text-white">SoloWay ИИ-Консьерж (Офлайн-ядро)</span>
+          <div class="px-3 py-2 bg-slate-950/60 border-b border-slate-800 flex items-center justify-between">
+            <div class="flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span class="text-xs font-bold text-white">AI-Консьерж SoloWay</span>
             </div>
-            <span class="text-[10px] text-slate-400">Заменяет гида</span>
+            <span class="text-[9px] text-emerald-400 font-bold bg-emerald-500/10 px-1.5 py-0.5 rounded">Локальная LLM</span>
           </div>
 
-          <div id="chat-messages" class="flex-1 p-3.5 overflow-y-auto space-y-3 text-xs">
-            <div class="bg-slate-800/90 text-slate-200 rounded-2xl rounded-tl-sm p-3 max-w-[88%]">
-              Привет! Я твой автономный гид SoloWay. Я знаю расписания транспорта, честные цены местных и безопасные
-              переулки. Чем помочь?
+          <div id="chat-messages" class="flex-1 p-3 overflow-y-auto space-y-2.5 text-xs">
+            <div class="bg-slate-800/90 text-slate-200 rounded-2xl rounded-tl-sm p-3 max-w-[90%] leading-relaxed">
+              Привет! Я твой автономный спутник <b>SoloWay</b>. Я знаю честные цены, автобусы без переплат и безопасные улицы без роуминга. О чем рассказать?
             </div>
           </div>
 
-          <div class="px-3 py-2 bg-slate-950/50 border-t border-slate-800/80 flex gap-1.5 overflow-x-auto no-scrollbar">
-            <button onclick="askAiQuestion('airport')"
-              class="shrink-0 bg-slate-800 hover:bg-sky-600 text-slate-200 hover:text-white px-2.5 py-1.5 rounded-xl text-[11px] font-medium transition">
-              🚌 Как доехать из аэропорта без такси?
+          <!-- Quick Prompts -->
+          <div class="px-2.5 py-2 bg-slate-950/50 border-t border-slate-800 flex gap-1.5 overflow-x-auto no-scrollbar">
+            <button onclick="askAiQuestion('airport')" class="shrink-0 bg-slate-800 hover:bg-sky-600 text-slate-200 hover:text-white px-2.5 py-1 rounded-xl text-[11px] font-medium transition">
+              🚌 Доехать из аэропорта
             </button>
-            <button onclick="askAiQuestion('sim')"
-              class="shrink-0 bg-slate-800 hover:bg-sky-600 text-slate-200 hover:text-white px-2.5 py-1.5 rounded-xl text-[11px] font-medium transition">
-              📶 Где купить связь без переплат?
+            <button onclick="askAiQuestion('sim')" class="shrink-0 bg-slate-800 hover:bg-sky-600 text-slate-200 hover:text-white px-2.5 py-1 rounded-xl text-[11px] font-medium transition">
+              📶 Связь и проездной
             </button>
-            <button onclick="askAiQuestion('food')"
-              class="shrink-0 bg-slate-800 hover:bg-sky-600 text-slate-200 hover:text-white px-2.5 py-1.5 rounded-xl text-[11px] font-medium transition">
-              🍲 Где поесть со скидкой 60%?
+            <button onclick="askAiQuestion('food')" class="shrink-0 bg-slate-800 hover:bg-sky-600 text-slate-200 hover:text-white px-2.5 py-1 rounded-xl text-[11px] font-medium transition">
+              🍲 Где поесть без наценки
             </button>
           </div>
         </div>
@@ -758,168 +553,90 @@
 
     </main>
 
-    <!-- FLOATING AUDIO GUIDE MINI PLAYER -->
-    <div id="audio-player-bar"
-      class="hidden absolute bottom-[68px] left-3 right-3 bg-slate-900/95 backdrop-blur-md border border-sky-500/40 rounded-2xl p-2.5 shadow-2xl z-40 flex items-center justify-between animate-fadeIn">
+    <!-- FLOATING AUDIO-GUIDE PLAYER BAR (Plays real speech synthesis stories) -->
+    <div id="audio-player-bar" class="hidden absolute bottom-[58px] left-3 right-3 bg-slate-900/95 backdrop-blur-md border border-sky-500/40 rounded-2xl p-2.5 shadow-2xl z-40 flex items-center justify-between">
       <div class="flex items-center gap-2.5">
         <div class="eq-anim flex items-end gap-0.5 h-4 px-1">
           <span></span><span></span><span></span><span></span>
         </div>
         <div>
-          <span class="text-[10px] font-extrabold text-sky-400 uppercase block leading-none">3D Аудиогид SoloWay</span>
-          <p id="audio-track-title" class="text-xs font-bold text-white truncate max-w-[190px] mt-0.5">История подземных
-            цистерн</p>
+          <span class="text-[9px] font-bold text-sky-400 uppercase block leading-none">Голосовой аудиогид SoloWay</span>
+          <p id="audio-track-title" class="text-xs font-bold text-white truncate max-w-[190px] mt-0.5">История локации</p>
         </div>
       </div>
       <div class="flex items-center gap-2">
-        <span class="text-[11px] text-slate-400 font-mono" id="audio-timer">00:14 / 02:30</span>
-        <button onclick="closeAudioGuide()"
-          class="w-7 h-7 rounded-lg bg-slate-800 text-slate-300 hover:text-white flex items-center justify-center">
-          <i class="fa-solid fa-xmark text-xs"></i>
+        <button onclick="toggleAudioGuidePause()" id="audio-play-pause-btn" class="w-7 h-7 rounded-lg bg-sky-500 text-white flex items-center justify-center text-xs">
+          <i class="fa-solid fa-pause"></i>
+        </button>
+        <button onclick="closeAudioGuide()" class="w-7 h-7 rounded-lg bg-slate-800 text-slate-300 hover:text-white flex items-center justify-center text-xs">
+          <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
     </div>
 
-    <!-- MODAL: RETURN TO HOTEL CARD (OFFLINE) -->
-    <div id="hotel-modal"
-      class="hidden absolute inset-0 bg-slate-950/85 backdrop-blur-md z-50 flex items-center justify-center p-5 animate-fadeIn">
-      <div
-        class="bg-slate-900 border border-slate-700 rounded-3xl p-5 w-full max-w-sm shadow-2xl space-y-4 text-center">
-        <div
-          class="w-12 h-12 rounded-2xl bg-rose-500/20 text-rose-400 flex items-center justify-center mx-auto text-xl">
+    <!-- MODAL FOR "RETURN TO HOTEL" (Safe offline return) -->
+    <div id="hotel-modal" class="hidden absolute inset-0 bg-slate-950/85 backdrop-blur-md z-50 flex items-center justify-center p-4">
+      <div class="bg-slate-900 border border-slate-700 rounded-3xl p-4 w-full max-w-sm shadow-2xl space-y-3.5 text-center">
+        <div class="w-11 h-11 rounded-2xl bg-rose-500/20 text-rose-400 flex items-center justify-center mx-auto text-lg">
           <i class="fa-solid fa-compass"></i>
         </div>
         <div>
-          <span class="text-[10px] font-extrabold uppercase tracking-wider text-rose-400">Автономный возврат без
-            связи</span>
-          <h3 class="text-lg font-black text-white mt-1">Карточка для водителя / прохожих</h3>
-          <p class="text-xs text-slate-400 mt-1">Покажите этот экран водителю автобуса или местным жителям:</p>
+          <span class="text-[10px] font-bold uppercase tracking-wider text-rose-400">Автономный возврат</span>
+          <h3 class="text-base font-extrabold text-white mt-0.5">Карточка для водителя / прохожего</h3>
+          <p class="text-[11px] text-slate-400 mt-0.5">Покажите этот экран местному жителю:</p>
         </div>
-        <div class="bg-slate-950 border border-slate-800 rounded-2xl p-3.5 text-left space-y-1.5">
-          <p class="text-[11px] text-amber-300 font-bold uppercase">На языке страны:</p>
-          <p id="hotel-native-text" class="text-sm font-black text-white leading-relaxed">"Merhaba! Sultanahmet Caddesi
-            No:42 adresindeki otele gitmek istiyorum. Hangi tramvay gider?"</p>
-          <p class="text-[11px] text-slate-400 pt-1.5 border-t border-slate-800">
-            Офлайн-компас: <b class="text-emerald-400">850 метров на Юго-Восток (11 мин)</b>
-          </p>
+        <div class="bg-slate-950 border border-slate-800 rounded-2xl p-3 text-left space-y-1">
+          <p class="text-[10px] text-amber-300 font-bold uppercase">На местном языке:</p>
+          <p id="hotel-native-text" class="text-xs font-extrabold text-white">"Sultanahmet Caddesi No:42 adresindeki otele gitmek istiyorum. Hangi tramvay gider?"</p>
+          <p class="text-[10px] text-slate-400 pt-1 border-t border-slate-800">Офлайн-компас: <b class="text-emerald-400">850м на Юго-Восток (11 мин)</b></p>
         </div>
         <div class="flex gap-2">
-          <button onclick="closeHotelModal(); switchTab('nav');"
-            class="flex-1 bg-sky-500 hover:bg-sky-400 text-white font-bold py-2.5 rounded-xl text-xs transition">
-            Показать на карте
+          <button onclick="closeHotelModal(); switchTab('nav');" class="flex-1 bg-sky-500 hover:bg-sky-400 text-white font-bold py-2 rounded-xl text-xs transition">
+            На карте
           </button>
-          <button onclick="closeHotelModal()"
-            class="px-4 bg-slate-800 text-slate-300 font-bold py-2.5 rounded-xl text-xs">
+          <button onclick="closeHotelModal()" class="px-4 bg-slate-800 text-slate-300 font-bold py-2 rounded-xl text-xs">
             Закрыть
           </button>
         </div>
       </div>
     </div>
 
-    <!-- MODAL: PITCH DECK & BUSINESS MODEL FOR JURY -->
-    <div id="pitch-modal"
-      class="hidden absolute inset-0 bg-slate-950/90 backdrop-blur-md z-50 flex items-center justify-center p-4 overflow-y-auto no-scrollbar animate-fadeIn">
-      <div class="bg-slate-900 border border-slate-700/80 rounded-3xl p-5 w-full max-w-md shadow-2xl space-y-4 my-auto">
-        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-          <div class="flex items-center gap-2">
-            <span class="w-3 h-3 rounded-full bg-amber-400 animate-pulse"></span>
-            <h3 class="text-sm font-black text-white tracking-wide uppercase">Питч SoloWay (3 мин)</h3>
-          </div>
-          <button onclick="closePitchModal()"
-            class="w-8 h-8 rounded-xl bg-slate-800 text-slate-300 hover:text-white flex items-center justify-center">
-            <i class="fa-solid fa-xmark"></i>
-          </button>
-        </div>
-
-        <div class="space-y-3.5 text-xs max-h-[70vh] overflow-y-auto pr-1 no-scrollbar">
-
-          <div class="bg-slate-950 border border-slate-800 rounded-2xl p-3.5">
-            <span class="text-[10px] font-extrabold uppercase text-rose-400">01. Проблема</span>
-            <p class="text-white font-bold mt-1 text-xs">Туристы теряют $150–$300 на наценках и боятся заблудиться без
-              интернета</p>
-            <p class="text-slate-400 mt-1">Турагентства берут огромные комиссии, водят толпами по расписанию и скрывают
-              реальные цены для местных.</p>
-          </div>
-
-          <div class="bg-slate-950 border border-slate-800 rounded-2xl p-3.5">
-            <span class="text-[10px] font-extrabold uppercase text-sky-400">02. Наше решение</span>
-            <p class="text-white font-bold mt-1 text-xs">Автономный карманный ИИ-проводник</p>
-            <p class="text-slate-400 mt-1">Офлайн AR-навигатор по камере + сканер честных цен («Анти-обман») для
-              разоблачения наценок в ресторанах и такси.</p>
-          </div>
-
-          <div class="bg-slate-950 border border-slate-800 rounded-2xl p-3.5">
-            <span class="text-[10px] font-extrabold uppercase text-emerald-400">03. Бизнес-модель (Кто платит)</span>
-            <ul class="text-slate-300 space-y-1.5 mt-1.5">
-              <li>• <b>Турист:</b> Travel Pass $4.99 на 7 дней (платит $5, чтобы сэкономить $200).</li>
-              <li>• <b>Партнеры:</b> 8–20% комиссии с билетов в музеи и туристических eSIM.</li>
-              <li>• <b>Локальный бизнес:</b> $29/мес за бейдж «Проверено местными» и попадание в рекомендации.</li>
-            </ul>
-          </div>
-
-          <div class="bg-slate-950 border border-slate-800 rounded-2xl p-3.5">
-            <span class="text-[10px] font-extrabold uppercase text-amber-400">04. Юнит-экономика</span>
-            <p class="text-white font-extrabold mt-1">Маржинальность бизнеса: ~85%</p>
-            <p class="text-slate-400 mt-1">Себестоимость ИИ-запросов и офлайн карт: всего $0.20 на туриста при среднем
-              чеке $5.00.</p>
-          </div>
-
-          <div class="bg-slate-950 border border-slate-800 rounded-2xl p-3.5">
-            <span class="text-[10px] font-extrabold uppercase text-indigo-400">05. Команда и основатель</span>
-            <p class="text-white font-extrabold mt-1">Фердаус Акбари — Solo Founder & Lead Developer</p>
-            <p class="text-slate-400 mt-1">Полный цикл: разработка концепции, архитектура, UX/UI и рабочий интерактивный
-              прототип.</p>
-          </div>
-
-        </div>
-
-        <button onclick="closePitchModal()"
-          class="w-full bg-sky-500 hover:bg-sky-400 text-white font-bold py-2.5 rounded-xl text-xs transition">
-          Вернуться к приложению
-        </button>
-      </div>
-    </div>
-
-    <!-- BOTTOM FIXED NAVIGATION BAR -->
-    <nav
-      class="bg-slate-900/95 backdrop-blur-md border-t border-slate-800 px-2 py-2 flex items-center justify-around z-40 shrink-0">
-      <button onclick="switchTab('route')" id="nav-btn-route"
-        class="nav-tab-btn flex flex-col items-center justify-center py-1 px-3 rounded-xl text-sky-400 transition">
-        <i class="fa-solid fa-route text-base mb-0.5"></i>
-        <span class="text-[10px] font-extrabold">Маршрут</span>
+    <!-- Pinned Bottom Navigation -->
+    <nav class="bg-slate-900/95 backdrop-blur-md border-t border-slate-800 px-2 py-1.5 flex items-center justify-around z-40 shrink-0">
+      <button onclick="switchTab('route')" id="nav-btn-route" class="nav-tab-btn flex flex-col items-center justify-center py-1 px-3 rounded-xl text-sky-400 transition">
+        <i class="fa-solid fa-route text-sm mb-0.5"></i>
+        <span class="text-[10px] font-bold">Маршрут</span>
       </button>
-      <button onclick="switchTab('nav')" id="nav-btn-nav"
-        class="nav-tab-btn flex flex-col items-center justify-center py-1 px-3 rounded-xl text-slate-400 hover:text-slate-200 transition">
-        <i class="fa-solid fa-location-crosshairs text-base mb-0.5"></i>
-        <span class="text-[10px] font-extrabold">Навигатор</span>
+      <button onclick="switchTab('nav')" id="nav-btn-nav" class="nav-tab-btn flex flex-col items-center justify-center py-1 px-3 rounded-xl text-slate-400 hover:text-slate-200 transition">
+        <i class="fa-solid fa-location-crosshairs text-sm mb-0.5"></i>
+        <span class="text-[10px] font-bold">Навигатор</span>
       </button>
-      <button onclick="switchTab('scanner')" id="nav-btn-scanner"
-        class="nav-tab-btn flex flex-col items-center justify-center py-1 px-3 rounded-xl text-slate-400 hover:text-slate-200 transition">
-        <i class="fa-solid fa-expand text-base mb-0.5"></i>
-        <span class="text-[10px] font-extrabold">Анти-обман</span>
+      <button onclick="switchTab('scanner')" id="nav-btn-scanner" class="nav-tab-btn flex flex-col items-center justify-center py-1 px-3 rounded-xl text-slate-400 hover:text-slate-200 transition">
+        <i class="fa-solid fa-expand text-sm mb-0.5"></i>
+        <span class="text-[10px] font-bold">Анти-обман</span>
       </button>
-      <button onclick="switchTab('assistant')" id="nav-btn-assistant"
-        class="nav-tab-btn flex flex-col items-center justify-center py-1 px-3 rounded-xl text-slate-400 hover:text-slate-200 transition">
-        <i class="fa-solid fa-robot text-base mb-0.5"></i>
-        <span class="text-[10px] font-extrabold">Помощник</span>
+      <button onclick="switchTab('assistant')" id="nav-btn-assistant" class="nav-tab-btn flex flex-col items-center justify-center py-1 px-3 rounded-xl text-slate-400 hover:text-slate-200 transition">
+        <i class="fa-solid fa-robot text-sm mb-0.5"></i>
+        <span class="text-[10px] font-bold">Помощник</span>
       </button>
     </nav>
 
   </div>
 
-  <!-- APPLICATION LOGIC & STATE MANAGEMENT -->
   <script>
     let currentCity = 'istanbul';
     let currentVibe = 'all';
     let isRaining = false;
-    let audioInterval = null;
-    let audioSeconds = 14;
+    let isAudioPlaying = false;
+    let currentAudioStory = '';
+    let currentScannerType = 'menu';
 
-    // Database of Independent City Routes (No travel agencies required)
+    // 1. DATA: ROUTES & AUDIO STORIES PER CITY
     const cityData = {
       istanbul: {
         saved: 'Сэкономлено: $280',
         agency: 'Турфирма: $450',
+        savedDesc: 'Прямые билеты на трамваи и музеи без наценок гидов',
         hotelText: '"Merhaba! Sultanahmet Caddesi No:42 adresindeki otele gitmek istiyorum. Hangi tramvay gider?"',
         steps: [
           {
@@ -927,30 +644,33 @@
             type: 'budget',
             badge: 'Трансфер без такси',
             badgeColor: 'bg-emerald-500/20 text-emerald-300',
-            title: 'Аэропорт → Центр на метро M11 + шаттл',
-            desc: 'Вместо такси за $45 спускайтесь к указателям «Metro M11» или шаттлам Havaist-12. Оплата банковской картой прямо при входе.',
+            title: 'Аэропорт → Центр на метро M11 + Havaist',
+            desc: 'Вместо такси за $45 спускайтесь на уровень -2 по указателям «Havaist-12». Оплата бесконтактной картой прямо в автобусе за $4.50.',
             cost: '$4.50 (вместо $45)',
-            audio: null
+            audioTitle: 'Как добраться без переплат',
+            audioText: 'Добро пожаловать в Стамбул! Не берите частное такси в зале прилета, где туристы платят двойной тариф. Экспресс шаттл Хаваист довезет вас прямо до площади Султанахмет всего за четыре с половиной доллара.'
           },
           {
             time: '10:30',
             type: 'secret',
-            badge: 'Без очередей и гидов',
+            badge: 'Без очередей гидов',
             badgeColor: 'bg-sky-500/20 text-sky-300',
             title: 'Цистерна Феодосия (Секретный вход)',
-            desc: 'Пока экскурсионные группы стоят 1.5 часа в Цистерну Базилика, зайдите в отреставрированную Феодосию: лазерное шоу и нулевая очередь.',
-            cost: 'Билет в кассе: $12',
-            audio: 'Тайна подземных водохранилищ Константинополя'
+            desc: 'В Базилику очередь на 1.5 часа. Зайдите в соседнюю Цистерну Феодосия: лазерное 3D-шоу и нулевая очередь в кассу.',
+            cost: 'Билет: $12',
+            audioTitle: 'Тайна византийских цистерн',
+            audioText: 'Цистерна Феодосия построена более тысячи шестисот лет назад императором Феодосием Вторым. Вода сюда шла по акведуку за сотни километров, спасая Константинополь от многомесячных осад.'
           },
           {
             time: '13:00',
             type: 'food',
-            badge: 'Гастро-точка местных',
+            badge: 'Локальная еда',
             badgeColor: 'bg-amber-500/20 text-amber-300',
-            title: 'Обед в столовой ремесленников (Esnaf Lokantası)',
-            desc: 'Сверните на 100 метров от туристической улицы в переулок за Гранд-Базаром. Настоящий кебаб и суп по ценам для местных.',
+            title: 'Столовая ремесленников (Esnaf Lokantası)',
+            desc: 'Сверните на 100 метров от туристической улицы Диван Йолу. Настоящий кебаб и суп по ценам для местных.',
             cost: 'Полный обед: $5.50',
-            audio: 'Кулинарные традиции старого Стамбула'
+            audioTitle: 'Секреты кухни ремесленников',
+            audioText: 'Эснаф Локантасы — это традиционные стамбульские заведения для местных ремесленников. Здесь готовят свежие блюда домашней кухни с раннего утра, а порции щедрые и без сервисных сборов.'
           },
           {
             time: '15:30',
@@ -958,117 +678,118 @@
             badge: 'Паром вместо яхт-тура',
             badgeColor: 'bg-indigo-500/20 text-indigo-300',
             title: 'Круиз через Босфор на городском пароме Şehir Hatları',
-            desc: 'Агентства продают «Круиз по Босфору» за $50. Приложите проездной на причале Эминёню и плывите тем же маршрутом за $1 с чаем и чайками!',
+            desc: 'Агентства продают круиз за $50. Приложите проездной на причале Эминёню и плывите тем же путем за $0.95 со свежим чаем!',
             cost: 'Проезд: $0.95',
-            audio: 'Дворцы двух континентов с борта парома'
+            audioTitle: 'Паромная романтика Босфора',
+            audioText: 'Городской паром через Босфор — это лучший способ увидеть город с воды. Покупайте горячий чай в стеклянном армуде, берите бублик симит для чаек и наслаждайтесь видами дворца Топкапы.'
           }
         ],
         rainSteps: [
           {
             time: '11:00',
             type: 'secret',
-            badge: 'Крытый маршрут (Дождь)',
+            badge: 'Крытый маршрут',
             badgeColor: 'bg-sky-500/20 text-sky-300',
-            title: 'Исторические пассажи Гранд-Базара и кофейня Şark Kahvesi',
-            desc: 'Укрываемся от непогоды под древними сводами 1461 года в тихих ремесленных дворах, куда не водят туристические автобусы.',
-            cost: 'Кофе на песке: $2.00',
-            audio: 'Секреты ремесленников Шелкового пути'
-          },
-          {
-            time: '14:00',
-            type: 'budget',
-            badge: 'Крытый музей по QR',
-            badgeColor: 'bg-emerald-500/20 text-emerald-300',
-            title: 'Музей турецкого и исламского искусства',
-            desc: 'Официальный электронный билет через приложение. Внутри тепло, просторно и открывается вид на Голубую мечеть из арочных окон.',
-            cost: 'Билет: $14.00',
-            audio: 'Шедевры дворца Ибрагима-паши'
+            title: 'Ремесленные дворы (ханы) Гранд-Базара',
+            desc: 'Укрываемся под древними сводами 1461 года в тихих двориках ювелиров, где нет толп.',
+            cost: 'Кофе на песке: $2',
+            audioTitle: 'Лабиринты шелкового пути',
+            audioText: 'Гранд-Базар — один из старейших крытых рынков в мире. Но мало кто знает о внутренних двориках-ханах, где веками ковали серебро и чеканили монеты византийские и османские мастера.'
           }
         ]
       },
       turkestan: {
         saved: 'Сэкономлено: 85 000 ₸',
         agency: 'Турфирма: 140 000 ₸',
-        hotelText: '"Сәлеметсіз бе! Маған Б. Саттарханов даңғылы, 25 қонақүйіне жету керек. Қай автобус барады?"',
+        savedDesc: 'Маршруты по Туркестану и Алматы без посредников',
+        hotelText: '"Сәлеметсіз бе! Маған Б. Саттарханов даңғылы, 25 қонақүйге жету керек. Қай автобус барады?"',
         steps: [
           {
             time: '09:30',
             type: 'budget',
-            badge: 'Городской экспресс',
+            badge: 'Экспресс автобус',
             badgeColor: 'bg-emerald-500/20 text-emerald-300',
-            title: 'Аэропорт Hazret Sultan → Мавзолей на автобусе №1а',
-            desc: 'Автобус останавливается прямо у выхода из терминала. Оплата через Kaspi QR за 100 тенге вместо частного такси за 5 000 тенге.',
+            title: 'Аэропорт Hazret Sultan → Центр на автобусе №1а',
+            desc: 'Автобус ждет у выхода из терминала. Оплата через Kaspi QR за 100 ₸ вместо частного такси за 5 000 ₸.',
             cost: '100 ₸ (вместо 5 000 ₸)',
-            audio: null
+            audioTitle: 'Ворота древнего Туркестана',
+            audioText: 'Добро пожаловать в духовную столицу тюркского мира! Вы можете быстро добраться до исторического центра на городском экспрессе всего за сто тенге через Kaspi QR.'
           },
           {
             time: '11:00',
             type: 'secret',
-            badge: 'Аудиогид 360°',
+            badge: 'Офлайн-аудиогид 360°',
             badgeColor: 'bg-sky-500/20 text-sky-300',
-            title: 'Мавзолей Ходжи Ахмеда Ясави и подземная мечеть Хильвет',
-            desc: 'Обойдите комплекс с восточной стороны к рассветным ракурсам без толпы. Включите офлайн-аудиогид SoloWay.',
+            title: 'Мавзолей Ходжи Ахмеда Ясави и мечеть Хильвет',
+            desc: 'Не нанимайте гида у входа. Обойдите комплекс с восточной стороны для лучших ракурсов без людей.',
             cost: 'Вход: 700 ₸',
-            audio: 'Легенды Тайказана и архитектура эпохи Тимура'
+            audioTitle: 'Тайна Тайказана и архитектуры Тимура',
+            audioText: 'Мавзолей воздвигнут по приказу Эмира Тимура в четырнадцатом веке. Главная жемчужина внутри — Тайказан, отлитый из сплава семи благородных металлов весом две тонны.'
           },
           {
             time: '13:30',
             type: 'food',
-            badge: 'Выбор местных',
+            badge: 'Настоящая чайхана',
             badgeColor: 'bg-amber-500/20 text-amber-300',
-            title: 'Настоящий туркестанский плов в старой чайхане',
-            desc: 'В 400 метрах от туристической аллеи расположена семейная чайхана со свежим пловом и горячими тандырными лепешками.',
+            title: 'Туркестанский плов в старом городе',
+            desc: 'Пройдите 400м от турзоны в семейную чайхану: огромный плов на хлопковом масле с казы и горячие лепешки.',
             cost: 'Чек: 2 200 ₸',
-            audio: null
+            audioTitle: 'Традиции туркестанского плова',
+            audioText: 'Настоящий туркестанский плов томится с отборным желтым самаркандским рисом и сочной бараниной. Местные жители всегда берут к нему свежий шакарап и горячий чай номер девяносто пять.'
           }
         ],
         rainSteps: [
           {
             time: '11:30',
             type: 'secret',
-            badge: 'Крытый комплекс',
+            badge: 'Крытый павильон',
             badgeColor: 'bg-sky-500/20 text-sky-300',
-            title: 'Музей «Улы Дала Ели» и летающий театр «Алтын Самрук»',
-            desc: 'Современные интерактивные крытые залы истории и 8D-полет над древними городами Шелкового пути.',
-            cost: 'Вход: 2 500 ₸',
-            audio: 'Легенды Великой Степи'
+            title: 'Музей «Улы Дала Ели» и летающий театр Алтын Самрук',
+            desc: 'Интерактивные залы под крышей с 8D-полетом над древними городами Шелкового пути.',
+            cost: 'Билет: 2 500 ₸',
+            audioTitle: 'Легенды Великой Степи',
+            audioText: 'В музее Улы Дала Ели оживают предания о золотом человеке, батырах и древних караванах, связывавших Восток и Запад.'
           }
         ]
       },
       rome: {
         saved: 'Сэкономлено: €310',
         agency: 'Турфирма: €520',
+        savedDesc: 'Билеты в кассах и региональные поезда Trenitalia',
         hotelText: '"Buongiorno! Devo raggiungere Via Cavour 85 vicino alla stazione Termini. Quale autobus o metro posso prendere?"',
         steps: [
           {
             time: '08:45',
             type: 'budget',
-            badge: 'Региональный поезд FL1',
+            badge: 'Поезд Trenitalia FL1',
             badgeColor: 'bg-emerald-500/20 text-emerald-300',
-            title: 'Аэропорт Фьюмичино → Центр Рима (Поезд FL1)',
-            desc: 'Вместо такси за €55 садитесь на региональную электричку FL1 до станций Trastevere или Ostiense всего за €8.',
+            title: 'Аэропорт Фьюмичино → Рим на региональной электричке',
+            desc: 'Вместо экспресса за €14 или такси за €55 садитесь на поезд FL1 до станции Trastevere или Ostiense за €8!',
             cost: '€8.00 (вместо €55)',
-            audio: null
+            audioTitle: 'Как доехать до центра Рима',
+            audioText: 'Региональная электричка Trenitalia FL1 идет каждые пятнадцать минут. Это комфортный двухэтажный поезд, позволяющий сэкономить около пятидесяти евро на такси.'
           },
           {
             time: '10:30',
             type: 'secret',
-            badge: 'Секретный ракурс',
+            badge: 'Секретный ракурс (0 €)',
             badgeColor: 'bg-sky-500/20 text-sky-300',
-            title: 'Замочная скважина Мальтийского ордена на Авентине',
-            desc: 'Бесплатная смотровая точка: посмотрите в старинную скважину ворот, где в обрамлении сада открывается купол Собора Святого Петра.',
+            title: 'Замочная скважина Мальтийского ордена',
+            desc: 'Никаких билетов: посмотрите в старинную скважину на Авентине, где в створе аллеи виден купол Святого Петра.',
             cost: 'Бесплатно (€0)',
-            audio: 'Секреты рыцарей Мальтийского ордена'
+            audioTitle: 'Тайна трех государств Рима',
+            audioText: 'Через эту замочную скважину вы одновременно видите три государства: Мальтийский орден, Италию и Ватикан на горизонте.'
           },
           {
             time: '13:15',
             type: 'food',
-            badge: 'Аутентичная траттория',
+            badge: 'Траттория местных',
             badgeColor: 'bg-amber-500/20 text-amber-300',
             title: 'Паста Cacio e Pepe в квартале Тестаччо',
-            desc: 'Квартал без туристических зазывал, где обедают римляне. Настоящие домашние рецепты и честный счет.',
+            desc: 'Без наценки Coperto. Настоящая римская паста с сыром Пекорино Романо и свежемолотым перцем.',
             cost: 'Обед: €11.50',
-            audio: null
+            audioTitle: 'Кулинарные правила итальянцев',
+            audioText: 'В квартале Тестаччо родилась классическая римская кухня. Здесь не заказывают капучино после полудня и уважают традиции приготовления пасты аль денте.'
           }
         ],
         rainSteps: [
@@ -1078,50 +799,385 @@
             badge: 'Крытый шедевр (0 €)',
             badgeColor: 'bg-sky-500/20 text-sky-300',
             title: 'Пантеон и базилика Санта-Мария-сопра-Минерва',
-            desc: 'Укрываемся от ливня под античным куполом с подлинными скульптурами Микеланджело в тихом внутреннем дворе.',
-            cost: 'Вход: €5.00',
-            audio: 'Инженерное чудо купола Пантеона'
+            desc: 'Укрываемся от дождя под античным куполом с подлинными статуями Микеланджело.',
+            cost: 'Вход: €5',
+            audioTitle: 'Инженерное чудо купола Пантеона',
+            audioText: 'Окулюс в центре купола Пантеона диаметром девять метров открыт небу. Во время дождя капли стекают в двадцать две скрытые дренажные трубы в античном мраморном полу.'
           }
         ]
       }
     };
 
-    // Render Timeline View
+    // 2. DATA: MAP POIS PER CITY
+    const cityMapPois = {
+      istanbul: {
+        transit: {
+          badge: 'Общественный транспорт',
+          badgeClass: 'bg-indigo-500/20 text-indigo-300',
+          title: 'Остановка Трамвая T1 (Султанахмет)',
+          desc: 'Быстрый проезд без пробок и таксистов. Оплата бесконтактной картой на турникете ($0.85).',
+          dist: '180 м',
+          tip: 'Поезда каждые 3 минуты'
+        },
+        cafe: {
+          badge: 'Проверенная гастро-точка',
+          badgeClass: 'bg-emerald-500/20 text-emerald-300',
+          title: 'Семейная пекарня «Tarihi Fırın»',
+          desc: 'Свежий симит и чай по ценам для местных. Без туристической наценки.',
+          dist: '95 м',
+          tip: 'Чек: $1.20'
+        },
+        trap: {
+          badge: 'Осторожно: Туристическая ловушка!',
+          badgeClass: 'bg-rose-500/20 text-rose-300',
+          title: 'Ресторан с зазывалами у площади',
+          desc: 'В чеках скрытый сбор +25% за обслуживание, цены на чай и воду завышены в 4 раза.',
+          dist: '110 м',
+          tip: 'Обойдите по соседней улице'
+        },
+        viewpoint: {
+          badge: 'Секретная локация (0 ₸)',
+          badgeClass: 'bg-amber-500/20 text-amber-300',
+          title: 'Крыша старого караван-сарая',
+          desc: 'Бесплатная панорама на Босфор и мечети, известная местным фотографам.',
+          dist: '240 м',
+          tip: 'Закат в 17:30'
+        }
+      },
+      turkestan: {
+        transit: {
+          badge: 'Общественный транспорт',
+          badgeClass: 'bg-indigo-500/20 text-indigo-300',
+          title: 'Остановка экспресса №1а (Мавзолей)',
+          desc: 'Прямой маршрут из аэропорта без навязчивых таксистов за 5 000 ₸. Оплата через Kaspi QR за 100 ₸.',
+          dist: '120 м',
+          tip: 'Интервал 15 минут'
+        },
+        cafe: {
+          badge: 'Чайхана местных',
+          badgeClass: 'bg-emerald-500/20 text-emerald-300',
+          title: 'Чайхана старого города',
+          desc: 'Туркестанский плов на хлопковом масле с казы, горячие лепешки и чай с травами.',
+          dist: '350 м',
+          tip: 'Плов готов в 12:45'
+        },
+        trap: {
+          badge: 'Осторожно: Завышенные цены!',
+          badgeClass: 'bg-rose-500/20 text-rose-300',
+          title: 'Сувенирные лавки у центрального входа',
+          desc: 'Наценка на сувениры и тюбетейки до 200%. Те же изделия ручной работы продаются за мавзолеем.',
+          dist: '80 м',
+          tip: 'Пройдите в ремесленный ряд'
+        },
+        viewpoint: {
+          badge: 'Панорама мавзолея (0 ₸)',
+          badgeClass: 'bg-amber-500/20 text-amber-300',
+          title: 'Восточный холм у крепостной стены',
+          desc: 'Лучшая точка для фотографий мавзолея без толп туристов и автобусов.',
+          dist: '210 м',
+          tip: 'Красивая подсветка вечером'
+        }
+      },
+      rome: {
+        transit: {
+          badge: 'Региональный поезд',
+          badgeClass: 'bg-indigo-500/20 text-indigo-300',
+          title: 'Станция электрички FL1 Roma Trastevere',
+          desc: 'Поезд из аэропорта за €8 вместо экспресса за €14 или такси за €55.',
+          dist: '250 м',
+          tip: 'Билеты в автоматах Trenitalia'
+        },
+        cafe: {
+          badge: 'Локальная траттория',
+          badgeClass: 'bg-emerald-500/20 text-emerald-300',
+          title: 'Trattoria di Testaccio',
+          desc: 'Домашняя паста Cacio e Pepe и эспрессо за €1.10. Место, куда ходят сами римляне.',
+          dist: '180 м',
+          tip: 'Без наценки Coperto'
+        },
+        trap: {
+          badge: 'Туристическая ловушка!',
+          badgeClass: 'bg-rose-500/20 text-rose-300',
+          title: 'Кафе с фото-меню у Колизея',
+          desc: 'Замороженная пицца с наценкой x3 и скрытый сервисный сбор Coperto €6 с человека.',
+          dist: '70 м',
+          tip: 'Избегайте ресторанов с зазывалами'
+        },
+        viewpoint: {
+          badge: 'Панорамный холм (0 €)',
+          badgeClass: 'bg-amber-500/20 text-amber-300',
+          title: 'Апельсиновый сад (Giardino degli Aranci)',
+          desc: 'Бесплатная смотровая площадка на весь Рим и купол Святого Петра.',
+          dist: '300 м',
+          tip: 'Идеальный закат в 18:00'
+        }
+      }
+    };
+
+    // 3. DATA: SCANNER & TTS PHRASES PER CITY
+    const cityScannerPresets = {
+      istanbul: {
+        lang: 'tr-TR',
+        menu: {
+          foreign: '📜 ОРИГИНАЛ: "Kuzu Şiş Kebap + Servis Ücreti — 950 TL"',
+          translated: 'Шашлык из ягненка + скрытый сбор (≈ 14 200 ₸ / $28)',
+          verdict: '⚠️ ВНИМАНИЕ: НАЦЕНКА ДЛЯ ТУРИСТОВ x2.5',
+          verdictClass: 'px-2 py-0.5 rounded-lg text-[10px] font-extrabold bg-rose-500/20 text-rose-400 border border-rose-500/30',
+          localPrice: 'Норма: 380 TL ($11)',
+          explanation: 'В заведении специальное меню для иностранцев. В 150 метрах за углом местные обедают тем же блюдом в 2.5 раза дешевле, а сервисный сбор 15% незаконен.',
+          phraseForeign: 'Yerel menüyü görebilir miyim lütfen?',
+          phrasePhonetic: '[Йерель менюйю гёребилир мийим лютфен?]',
+          phraseRu: 'Перевод: «Покажите, пожалуйста, меню для местных жителей»'
+        },
+        taxi: {
+          foreign: '🚕 ТАБЛО ВОДИТЕЛЯ: "Fixed Price Center — 40 EUR"',
+          translated: 'Фиксированный тариф до центра (≈ 21 500 ₸ / €40)',
+          verdict: '🚨 ОБМАН: ОТКЛЮЧЕН СЧЕТЧИК (ТАКСОМЕТР)',
+          verdictClass: 'px-2 py-0.5 rounded-lg text-[10px] font-extrabold bg-rose-500/20 text-rose-400 border border-rose-500/30',
+          localPrice: 'По счетчику: €9.50',
+          explanation: 'Водитель предлагает цену в 4 раза выше тарифа. Требуйте включить таксометр (Taksimetre) или воспользуйтесь трамваем в 80 метрах.',
+          phraseForeign: 'Lütfen taksimetreyi açar mısınız?',
+          phrasePhonetic: '[Лютфен таксимэтрэйи ачар мысыныз?]',
+          phraseRu: 'Перевод: «Пожалуйста, включите официальный таксометр»'
+        },
+        bazaar: {
+          foreign: '🏺 ЦЕННИК НА БАЗАРЕ: "El Yapımı Seramik — 1200 TL"',
+          translated: 'Керамическая тарелка ручной работы ($35)',
+          verdict: '💡 СОВЕТ: ТОРГ УМЕСТЕН (СКИДКА ДО 50%)',
+          verdictClass: 'px-2 py-0.5 rounded-lg text-[10px] font-extrabold bg-amber-500/20 text-amber-300 border border-amber-500/30',
+          localPrice: 'Реальная цена: 550 TL ($16)',
+          explanation: 'Первая цена на Гранд-Базаре рассчитана на туристов. Назовите 500 лир с улыбкой — продавец охотно уступит.',
+          phraseForeign: 'Çok güzel ama bütçem 500 Lira, son fiyat ne olur?',
+          phrasePhonetic: '[Чок гюзель ама бютчем 500 лира, сон фият нэ олур?]',
+          phraseRu: 'Перевод: «Очень красиво, но мой бюджет 500 лир, какая финальная цена?»'
+        }
+      },
+      turkestan: {
+        lang: 'kk-KZ',
+        menu: {
+          foreign: '📜 СЧЕТ: "Туркестанский плов + Сервис 20% — 6 500 ₸"',
+          translated: 'Порция плова с сервисной наценкой в турзоне',
+          verdict: '⚠️ НАЦЕНКА ТУРИСТИЧЕСКОЙ ЗОНЫ (+120%)',
+          verdictClass: 'px-2 py-0.5 rounded-lg text-[10px] font-extrabold bg-rose-500/20 text-rose-400 border border-rose-500/30',
+          localPrice: 'Реальная цена: 2 200 – 2 500 ₸',
+          explanation: 'В заведениях внутри туристического комплекса цены завышены. В чайханах в 5 минутах ходьбы порция с казы стоит 2 200 ₸.',
+          phraseForeign: 'Мәзірде жергілікті тұрғындарға арналған бағалар бар ма?',
+          phrasePhonetic: '[Мазирде жергиликти тургындарга арналган багалар бар ма?]',
+          phraseRu: 'Перевод: «Есть ли стандартное меню с обычными ценами?»'
+        },
+        taxi: {
+          foreign: '🚕 ТАКСИСТ: "До вокзала / мавзолея — 4 000 ₸"',
+          translated: 'Нерегулируемая поездка по городу',
+          verdict: '🚨 ТАКСИ-НАЦЕНКА ДЛЯ ПРИЕЗЖИХ (x4)',
+          verdictClass: 'px-2 py-0.5 rounded-lg text-[10px] font-extrabold bg-rose-500/20 text-rose-400 border border-rose-500/30',
+          localPrice: 'Агрегатор: 700 – 900 ₸ / Автобус: 100 ₸',
+          explanation: 'Частники у входа в комплекс называют завышенный тариф. Закажите поездку через официальный агрегатор или воспользуйтесь автобусом №1а.',
+          phraseForeign: 'Таксометрмен немесе ресми қосымша бойынша жүрейік.',
+          phrasePhonetic: '[Таксометрмен немесе ресми косымша бойынша журейик.]',
+          phraseRu: 'Перевод: «Поедем по таксометру или через официальное приложение»'
+        },
+        bazaar: {
+          foreign: '🏺 СУВЕНИР: "Тайқазан кәдесыйы (сувенир) — 15 000 ₸"',
+          translated: 'Сувенирная миниатюра Тайказана из латуни',
+          verdict: '💡 СОВЕТ: ЦЕНА ЗАВЫШЕНА В 2 РАЗА',
+          verdictClass: 'px-2 py-0.5 rounded-lg text-[10px] font-extrabold bg-amber-500/20 text-amber-300 border border-amber-500/30',
+          localPrice: 'Справедливая цена: 7 000 – 8 000 ₸',
+          explanation: 'В ремесленных мастерских старого города аналогичные сувениры продаются напрямую мастерами без торговой наценки.',
+          phraseForeign: 'Жеңілдік жасайсыз ба? 7 500 теңгеге бересіз бе?',
+          phrasePhonetic: '[Женилдик жасайсыз ба? 7 500 тенгеге бересиз бе?]',
+          phraseRu: 'Перевод: «Сделаете скидку? Отдадите за 7 500 тенге?»'
+        }
+      },
+      rome: {
+        lang: 'it-IT',
+        menu: {
+          foreign: '📜 СЧЕТ: "Spaghetti Bolognese + Coperto €7 — €28"',
+          translated: 'Паста + сбор за посадку за стол (€28)',
+          verdict: '⚠️ ТУРИСТИЧЕСКАЯ НАЦЕНКА x2',
+          verdictClass: 'px-2 py-0.5 rounded-lg text-[10px] font-extrabold bg-rose-500/20 text-rose-400 border border-rose-500/30',
+          localPrice: 'Честная цена: €11 – €13',
+          explanation: 'Ресторан возле Колизея добавил скрытую плату за сервировку (Coperto) сверх нормы. В аутентичных тратториях Тестаччо наценки нет.',
+          phraseForeign: 'Il servizio e il coperto sono inclusi nel conto?',
+          phrasePhonetic: '[Иль сэрвицио э иль копэрто соно инклузи нэль конто?]',
+          phraseRu: 'Перевод: «Обслуживание и сервировка включены в счет?»'
+        },
+        taxi: {
+          foreign: '🚕 ТАРИФ: "Airport to City Center — €75"',
+          translated: 'Поездка из аэропорта Фьюмичино',
+          verdict: '🚨 ПРЕВЫШЕНИЕ ОФИЦИАЛЬНОГО ТАРИФА',
+          verdictClass: 'px-2 py-0.5 rounded-lg text-[10px] font-extrabold bg-rose-500/20 text-rose-400 border border-rose-500/30',
+          localPrice: 'Официальный фикс: €50 / Поезд: €8',
+          explanation: 'В Риме действует официальный фиксированный тариф €50 от аэропорта до центра. Требуйте официальный тариф или садитесь на поезд FL1.',
+          phraseForeign: 'La tariffa fissa per il centro è cinquanta euro, vero?',
+          phrasePhonetic: '[Ла тариффа фисса пэр иль чэнтро э чинкуанта эуро, вэро?]',
+          phraseRu: 'Перевод: «Фиксированный тариф до центра — 50 евро, верно?»'
+        },
+        bazaar: {
+          foreign: '🏺 ЛАВКА: "Colosseo Miniatura — €18"',
+          translated: 'Сувенирный Колизей из гипса',
+          verdict: '💡 СОВЕТ: ПЕРЕПЛАТА ЗА МЕСТО',
+          verdictClass: 'px-2 py-0.5 rounded-lg text-[10px] font-extrabold bg-amber-500/20 text-amber-300 border border-amber-500/30',
+          localPrice: 'Обычная цена: €5 – €7',
+          explanation: 'В сувенирных лавках в районе вокзала Termini или района Монти те же сувениры стоят в 3 раза дешевле.',
+          phraseForeign: 'Posso avere uno sconto se pago in contanti?',
+          phrasePhonetic: '[Поссо авэрэ уно сконто сэ паго ин контанти?]',
+          phraseRu: 'Перевод: «Могу получить скидку при оплате наличными?»'
+        }
+      }
+    };
+
+    // 4. SPEECH SYNTHESIS ENGINE (Audio Guides & Phrases everywhere)
+    function stopSpeech() {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+      isAudioPlaying = false;
+    }
+
+    // Play Voice Story for Audio Guide on Main Page
+    function playAudioStory(title, text) {
+      stopSpeech();
+      const bar = document.getElementById('audio-player-bar');
+      document.getElementById('audio-track-title').textContent = title;
+      bar.classList.remove('hidden');
+
+      if (!('speechSynthesis' in window)) {
+        alert('Браузер не поддерживает озвучку, но аудиогид активен: ' + title);
+        return;
+      }
+
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'ru-RU';
+      utterance.rate = 1.0;
+      utterance.pitch = 1.0;
+
+      utterance.onstart = () => {
+        isAudioPlaying = true;
+        document.getElementById('audio-play-pause-btn').innerHTML = '<i class="fa-solid fa-pause"></i>';
+      };
+
+      utterance.onend = () => {
+        isAudioPlaying = false;
+        document.getElementById('audio-play-pause-btn').innerHTML = '<i class="fa-solid fa-play"></i>';
+      };
+
+      utterance.onerror = () => {
+        isAudioPlaying = false;
+        document.getElementById('audio-play-pause-btn').innerHTML = '<i class="fa-solid fa-play"></i>';
+      };
+
+      currentAudioStory = text;
+      window.speechSynthesis.speak(utterance);
+    }
+
+    function toggleAudioGuidePause() {
+      if (!('speechSynthesis' in window)) return;
+      if (isAudioPlaying) {
+        window.speechSynthesis.pause();
+        isAudioPlaying = false;
+        document.getElementById('audio-play-pause-btn').innerHTML = '<i class="fa-solid fa-play"></i>';
+      } else {
+        if (window.speechSynthesis.paused) {
+          window.speechSynthesis.resume();
+        } else if (currentAudioStory) {
+          playAudioStory(document.getElementById('audio-track-title').textContent, currentAudioStory);
+        }
+        isAudioPlaying = true;
+        document.getElementById('audio-play-pause-btn').innerHTML = '<i class="fa-solid fa-pause"></i>';
+      }
+    }
+
+    function closeAudioGuide() {
+      stopSpeech();
+      document.getElementById('audio-player-bar').classList.add('hidden');
+    }
+
+    function playCurrentCityAudioStory() {
+      const data = cityData[currentCity];
+      const firstStep = data.steps.find(s => s.audioText) || data.steps[0];
+      playAudioStory(firstStep.audioTitle || firstStep.title, firstStep.audioText || firstStep.desc);
+    }
+
+    // Play Foreign Phrase in Anti-Deception
+    function speakCurrentPhrase() {
+      const presets = cityScannerPresets[currentCity] || cityScannerPresets['istanbul'];
+      const item = presets[currentScannerType];
+      if (!item) return;
+
+      stopSpeech();
+      const btnLabel = document.getElementById('tts-btn-label');
+      btnLabel.textContent = 'Звучит...';
+
+      if (!('speechSynthesis' in window)) {
+        alert('Синтез речи недоступен в этом браузере.');
+        btnLabel.textContent = 'Озвучить';
+        return;
+      }
+
+      const phrase = item.phraseForeign;
+      const targetLang = presets.lang || 'en-US';
+      const utterance = new SpeechSynthesisUtterance(phrase);
+      utterance.lang = targetLang;
+      utterance.rate = 0.9;
+
+      // Handle system voices fallback
+      const voices = window.speechSynthesis.getVoices();
+      const matchedVoice = voices.find(v => v.lang.startsWith(targetLang.split('-')[0]));
+      if (matchedVoice) {
+        utterance.voice = matchedVoice;
+      }
+
+      utterance.onend = () => {
+        btnLabel.textContent = 'Озвучить';
+      };
+      utterance.onerror = () => {
+        // Fallback: speak phonetic in Russian if native voice is missing on device
+        const fallbackUtterance = new SpeechSynthesisUtterance(item.phrasePhonetic.replace(/[\[\]]/g, ''));
+        fallbackUtterance.lang = 'ru-RU';
+        fallbackUtterance.onend = () => { btnLabel.textContent = 'Озвучить'; };
+        window.speechSynthesis.speak(fallbackUtterance);
+      };
+
+      window.speechSynthesis.speak(utterance);
+    }
+
+    // 5. TIMELINE RENDERER
     function renderTimeline() {
       const container = document.getElementById('timeline-container');
       const data = cityData[currentCity];
       document.getElementById('saved-amount').textContent = data.saved;
       document.getElementById('agency-price').textContent = data.agency;
+      document.getElementById('saved-desc').textContent = data.savedDesc;
       document.getElementById('hotel-native-text').textContent = data.hotelText;
 
-      let stepsToShow = isRaining ? data.rainSteps : data.steps;
+      let steps = isRaining ? data.rainSteps : data.steps;
       if (currentVibe !== 'all' && !isRaining) {
-        stepsToShow = stepsToShow.filter(s => s.type === currentVibe);
+        steps = steps.filter(s => s.type === currentVibe);
       }
 
-      container.innerHTML = stepsToShow.map(step => `
+      container.innerHTML = steps.map((step, idx) => `
         <div class="relative pl-10">
           <div class="absolute left-3 top-3.5 w-4 h-4 rounded-full bg-slate-950 border-2 border-sky-400 flex items-center justify-center z-10">
             <span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>
           </div>
 
-          <div class="bg-slate-900/95 border border-slate-800 hover:border-slate-700 rounded-2xl p-3.5 shadow-md transition">
-            <div class="flex items-center justify-between gap-2 mb-1.5">
+          <div class="bg-slate-900/95 border border-slate-800 hover:border-slate-700 rounded-2xl p-3 shadow transition">
+            <div class="flex items-center justify-between gap-2 mb-1">
               <span class="text-xs font-mono font-bold text-slate-400">${step.time}</span>
-              <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-md ${step.badgeColor}">${step.badge}</span>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-md ${step.badgeColor}">${step.badge}</span>
             </div>
-            <h4 class="text-sm font-extrabold text-white leading-snug">${step.title}</h4>
-            <p class="text-xs text-slate-300 mt-1.5 leading-relaxed">${step.desc}</p>
+            <h4 class="text-xs font-extrabold text-white leading-snug">${step.title}</h4>
+            <p class="text-[11px] text-slate-300 mt-1 leading-relaxed">${step.desc}</p>
 
-            <div class="mt-3 pt-2.5 border-t border-slate-800/80 flex items-center justify-between gap-2">
-              <span class="text-xs font-black text-emerald-400"><i class="fa-solid fa-tag mr-1"></i>${step.cost}</span>
+            <div class="mt-2.5 pt-2 border-t border-slate-800/80 flex items-center justify-between gap-2">
+              <span class="text-xs font-bold text-emerald-400"><i class="fa-solid fa-tag mr-1"></i>${step.cost}</span>
               <div class="flex items-center gap-1.5">
-                ${step.audio ? `
-                  <button onclick="toggleAudioGuide('${step.audio}')" class="bg-sky-500/15 hover:bg-sky-500/25 text-sky-300 border border-sky-500/30 px-2.5 py-1 rounded-lg text-[11px] font-bold flex items-center gap-1.5 transition active:scale-95">
-                    <i class="fa-solid fa-play text-[10px]"></i> <span>Аудиогид</span>
+                ${step.audioText ? `
+                  <button onclick="playAudioStory('${step.audioTitle.replace(/'/g, "\'")}', '${step.audioText.replace(/'/g, "\'")}')" class="bg-sky-500/20 hover:bg-sky-500/30 text-sky-300 border border-sky-500/30 px-2 py-0.5 rounded-lg text-[11px] font-bold flex items-center gap-1 active:scale-95 transition">
+                    <i class="fa-solid fa-play text-[9px]"></i> <span>Аудиогид</span>
                   </button>
                 ` : ''}
-                <button onclick="switchTab('nav')" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-2.5 py-1 rounded-lg text-[11px] font-bold transition">
+                <button onclick="switchTab('nav')" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-2 py-0.5 rounded-lg text-[11px] font-medium transition">
                   На карте
                 </button>
               </div>
@@ -1131,10 +1187,24 @@
       `).join('');
     }
 
-    // Switch Destination
+    // 6. CITY & MODE CHANGERS
     function changeDestination(cityKey) {
       currentCity = cityKey;
+      stopSpeech();
       renderTimeline();
+      selectMapPoi('transit');
+      setScannerPreset(currentScannerType);
+
+      // Update AR live cues per city
+      const arMap = {
+        istanbul: { title: 'Пекарня и чайная местных', desc: 'Свежий симит и чай за $1.20', cue: 'Идите прямо 120м к станции метро' },
+        turkestan: { title: 'Чайхана старого города', desc: 'Туркестанский плов за 2 200 ₸', cue: 'Идите 150м на восток к воротам мавзолея' },
+        rome: { title: 'Trattoria di Testaccio', desc: 'Паста Cacio e Pepe без наценки Coperto', cue: 'Идите прямо 200м к станции Trastevere' }
+      };
+      const cue = arMap[cityKey] || arMap.istanbul;
+      document.getElementById('ar-card-title').textContent = cue.title;
+      document.getElementById('ar-card-desc').textContent = cue.desc;
+      document.getElementById('ar-nav-cue').textContent = cue.cue;
     }
 
     function toggleCityQuick() {
@@ -1144,12 +1214,11 @@
       changeDestination(next);
     }
 
-    // Vibe Filter Handler
     function setVibeFilter(vibe) {
       currentVibe = vibe;
       document.querySelectorAll('.vibe-btn').forEach(btn => {
         if (btn.dataset.vibe === vibe) {
-          btn.className = 'vibe-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold bg-sky-500 text-white shadow-md shadow-sky-500/30 transition';
+          btn.className = 'vibe-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold bg-sky-500 text-white shadow transition';
         } else {
           btn.className = 'vibe-btn shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-900 text-slate-300 border border-slate-800 transition';
         }
@@ -1157,22 +1226,18 @@
       renderTimeline();
     }
 
-    // Weather Adaptation Toggle
     function toggleWeatherAdapt() {
       isRaining = !isRaining;
-      const alertBox = document.getElementById('rain-alert');
-      const weatherBtn = document.getElementById('weather-btn');
+      document.getElementById('rain-alert').classList.toggle('hidden', !isRaining);
+      const btn = document.getElementById('weather-btn');
       if (isRaining) {
-        alertBox.classList.remove('hidden');
-        weatherBtn.classList.add('bg-sky-600', 'text-white');
+        btn.classList.add('bg-sky-600', 'text-white');
       } else {
-        alertBox.classList.add('hidden');
-        weatherBtn.classList.remove('bg-sky-600', 'text-white');
+        btn.classList.remove('bg-sky-600', 'text-white');
       }
       renderTimeline();
     }
 
-    // Switch Bottom Tabs
     function switchTab(tabId) {
       ['route', 'nav', 'scanner', 'assistant'].forEach(id => {
         document.getElementById(`tab-${id}`).classList.add('hidden');
@@ -1187,7 +1252,6 @@
       document.getElementById('main-scroll').scrollTop = 0;
     }
 
-    // Switch 2D Map vs AR View
     function switchNavMode(mode) {
       const mapView = document.getElementById('nav-map-view');
       const arView = document.getElementById('nav-ar-view');
@@ -1197,56 +1261,23 @@
       if (mode === 'map') {
         mapView.classList.remove('hidden');
         arView.classList.add('hidden');
-        btnMap.className = 'py-2 rounded-lg text-xs font-extrabold bg-sky-500 text-white shadow transition flex items-center justify-center gap-1.5';
-        btnAr.className = 'py-2 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition flex items-center justify-center gap-1.5';
+        btnMap.className = 'py-1.5 rounded-lg text-xs font-bold bg-sky-500 text-white shadow transition flex items-center justify-center gap-1.5';
+        btnAr.className = 'py-1.5 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition flex items-center justify-center gap-1.5';
       } else {
         mapView.classList.add('hidden');
         arView.classList.remove('hidden');
-        btnAr.className = 'py-2 rounded-lg text-xs font-extrabold bg-sky-500 text-white shadow transition flex items-center justify-center gap-1.5';
-        btnMap.className = 'py-2 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition flex items-center justify-center gap-1.5';
+        btnAr.className = 'py-1.5 rounded-lg text-xs font-bold bg-sky-500 text-white shadow transition flex items-center justify-center gap-1.5';
+        btnMap.className = 'py-1.5 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition flex items-center justify-center gap-1.5';
       }
     }
 
-    // POI Details on Vector Map
-    const poiDetails = {
-      transit: {
-        badge: 'Общественный транспорт',
-        badgeClass: 'bg-indigo-500/20 text-indigo-300',
-        title: 'Остановка скоростного трамвая T1',
-        desc: 'Самый быстрый способ проехать центр без пробок. Оплата обычной банковской картой или Istanbulkart на турникете.',
-        dist: '180 м',
-        tip: 'Интервал движения 3 минуты'
-      },
-      cafe: {
-        badge: 'Проверенная пекарня местных',
-        badgeClass: 'bg-emerald-500/20 text-emerald-300',
-        title: 'Семейная пекарня «Tarihi Fırın»',
-        desc: 'Нулевая туристическая наценка. Свежий горячий симит и чай по государственным ценам.',
-        dist: '95 м',
-        tip: 'Средний чек $1.50'
-      },
-      trap: {
-        badge: 'Осторожно: Туристическая ловушка!',
-        badgeClass: 'bg-rose-500/20 text-rose-300',
-        title: 'Ресторан с зазывалами на площади',
-        desc: 'В чеки тайно включают сбор 20%, а цены на напитки в 3 раза выше средних по городу.',
-        dist: '110 м',
-        tip: 'Рекомендуем обойти по соседней улице'
-      },
-      viewpoint: {
-        badge: 'Секретная локация (0 ₸)',
-        badgeClass: 'bg-amber-500/20 text-amber-300',
-        title: 'Панорамная крыша старого караван-сарая',
-        desc: 'Бесплатная панорама с видом на Золотой Рог, известная местным уличным фотографам.',
-        dist: '240 м',
-        tip: 'Идеальный закат в 17:45'
-      }
-    };
-
     function selectMapPoi(key) {
-      const info = poiDetails[key];
+      const cityPois = cityMapPois[currentCity] || cityMapPois['istanbul'];
+      const info = cityPois[key];
+      if (!info) return;
+
       const badgeEl = document.getElementById('poi-badge');
-      badgeEl.className = `text-[10px] font-extrabold uppercase px-2 py-0.5 rounded ${info.badgeClass}`;
+      badgeEl.className = `text-[10px] font-bold uppercase px-2 py-0.5 rounded ${info.badgeClass}`;
       badgeEl.textContent = info.badge;
       document.getElementById('poi-title').textContent = info.title;
       document.getElementById('poi-desc').textContent = info.desc;
@@ -1254,7 +1285,6 @@
       document.getElementById('poi-tip').innerHTML = `<i class="fa-solid fa-circle-info mr-1"></i>${info.tip}`;
     }
 
-    // Optional Real Device Camera Stream
     async function startRealCamera() {
       const videoEl = document.getElementById('ar-video');
       const camBtn = document.getElementById('cam-btn');
@@ -1262,56 +1292,26 @@
         const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
         videoEl.srcObject = stream;
         videoEl.classList.remove('hidden');
-        camBtn.innerHTML = '<i class="fa-solid fa-check mr-1"></i> Камера подключена';
+        camBtn.innerHTML = '<i class="fa-solid fa-check mr-1"></i> Камера вкл.';
         camBtn.classList.replace('text-sky-300', 'text-emerald-300');
       } catch (e) {
-        camBtn.innerHTML = '<i class="fa-solid fa-street-view mr-1"></i> 3D-Улица активна';
+        camBtn.innerHTML = '<i class="fa-solid fa-street-view mr-1"></i> 3D-Улица';
       }
     }
 
-    // Scanner Presets
-    const scannerPresets = {
-      menu: {
-        foreign: '📜 ОРИГИНАЛ: "Kuzu Şiş Kebap + Servis Ücreti — 950 TL"',
-        translated: 'Шашлык из ягненка + скрытый сбор (≈ 14 200 ₸ / $28)',
-        verdict: '⚠️ НАЦЕНКА ДЛЯ ТУРИСТОВ x2.5',
-        verdictClass: 'px-2.5 py-1 rounded-lg text-xs font-black bg-rose-500/20 text-rose-400 border border-rose-500/30',
-        localPrice: 'Норма: 380 TL ($11)',
-        explanation: 'В этом заведении туристам дают отдельное меню с наценкой. В 150 метрах местные едят то же блюдо в 2.5 раза дешевле.',
-        phraseForeign: '"Yerel menüyü görebilir miyim lütfen?"',
-        phrasePhonetic: '[Йерель менюйю гёребилир мийим лютфен?]',
-        phraseRu: 'Перевод: «Покажите, пожалуйста, меню для местных жителей»'
-      },
-      taxi: {
-        foreign: '🚕 ТАБЛО ВОДИТЕЛЯ: "Fixed Price Airport — 45 EUR"',
-        translated: 'Фиксированный тариф без счетчика (≈ 24 000 ₸ / €45)',
-        verdict: '🚨 ОБМАН: ОТКЛЮЧЕН СЧЕТЧИК (ТАКСОМЕТР)',
-        verdictClass: 'px-2.5 py-1 rounded-lg text-xs font-black bg-rose-500/20 text-rose-400 border border-rose-500/30',
-        localPrice: 'По счетчику: €12.00',
-        explanation: 'Водитель предлагает фиксированную цену в 4 раза выше тарифа. Требуйте включить таксометр или воспользуйтесь трамваем.',
-        phraseForeign: '"Lütfen taksimetreyi açar mısınız?"',
-        phrasePhonetic: '[Лютфен таксимэтрэйи ачар мысыныз?]',
-        phraseRu: 'Перевод: «Пожалуйста, включите официальный таксометр»'
-      },
-      bazaar: {
-        foreign: '🏺 ЦЕННИК НА РЫНКЕ: "El Yapımı Kilim — 1400 TL"',
-        translated: 'Килим ручной работы (≈ 21 000 ₸ / $41)',
-        verdict: '💡 СОВЕТ: ТОРГ УМЕСТЕН (СКИДКА ДО 50%)',
-        verdictClass: 'px-2.5 py-1 rounded-lg text-xs font-black bg-amber-500/20 text-amber-300 border border-amber-500/30',
-        localPrice: 'Реальная цена: 650 TL ($19)',
-        explanation: 'Стартовая цена на базарах завышена для иностранцев. Назовите цену в 600 лир с улыбкой — продавец охотно уступит.',
-        phraseForeign: '"Çok güzel ama bütçem 600 Lira, son fiyat ne olur?"',
-        phrasePhonetic: '[Чок гюзель ама бютчем 600 лира, сон фият нэ олур?]',
-        phraseRu: 'Перевод: «Очень красиво, но мой бюджет 600 лир, какая последняя цена?»'
-      }
-    };
-
     function setScannerPreset(key) {
-      const p = scannerPresets[key];
+      currentScannerType = key;
+      const presets = cityScannerPresets[currentCity] || cityScannerPresets['istanbul'];
+      const p = presets[key];
+      if (!p) return;
+
       document.querySelectorAll('.scan-preset-btn').forEach(btn => {
-        btn.className = 'scan-preset-btn py-2.5 px-2 rounded-xl text-xs font-bold bg-slate-900 text-slate-300 border border-slate-800 transition text-center';
+        btn.className = 'scan-preset-btn py-2 px-1 rounded-xl text-xs font-bold bg-slate-900 text-slate-300 border border-slate-800 transition text-center';
       });
-      document.getElementById(`scan-btn-${key}`).className = 'scan-preset-btn py-2.5 px-2 rounded-xl text-xs font-bold bg-sky-500 text-white shadow-md transition text-center';
+      const activeBtn = document.getElementById(`scan-btn-${key}`);
+      if (activeBtn) {
+        activeBtn.className = 'scan-preset-btn py-2 px-1 rounded-xl text-xs font-bold bg-sky-500 text-white shadow transition text-center';
+      }
 
       document.getElementById('scan-foreign-title').textContent = p.foreign;
       document.getElementById('scan-translated-title').textContent = p.translated;
@@ -1320,57 +1320,27 @@
       vBadge.textContent = p.verdict;
       document.getElementById('scan-local-price').textContent = p.localPrice;
       document.getElementById('scan-explanation').textContent = p.explanation;
-      document.getElementById('scan-phrase-foreign').textContent = p.phraseForeign;
+      document.getElementById('scan-phrase-foreign').textContent = `"${p.phraseForeign}"`;
       document.getElementById('scan-phrase-phonetic').textContent = p.phrasePhonetic;
       document.getElementById('scan-phrase-ru').textContent = p.phraseRu;
     }
 
-    function speakPhrase() {
-      const phrase = document.getElementById('scan-phrase-foreign').textContent.replace(/"/g, '');
-      if ('speechSynthesis' in window) {
-        const utter = new SpeechSynthesisUtterance(phrase);
-        utter.lang = 'tr-TR';
-        window.speechSynthesis.speak(utter);
-      }
-    }
-
-    // Audio Guide Player
-    function toggleAudioGuide(trackTitle) {
-      const bar = document.getElementById('audio-player-bar');
-      document.getElementById('audio-track-title').textContent = trackTitle;
-      bar.classList.remove('hidden');
-      audioSeconds = 14;
-      if (audioInterval) clearInterval(audioInterval);
-      audioInterval = setInterval(() => {
-        audioSeconds++;
-        const mins = String(Math.floor(audioSeconds / 60)).padStart(2, '0');
-        const secs = String(audioSeconds % 60).padStart(2, '0');
-        document.getElementById('audio-timer').textContent = `${mins}:${secs} / 02:30`;
-      }, 1000);
-    }
-
-    function closeAudioGuide() {
-      document.getElementById('audio-player-bar').classList.add('hidden');
-      if (audioInterval) clearInterval(audioInterval);
-    }
-
-    // AI Concierge Chat Queries
     const aiResponses = {
       airport: {
-        q: 'Как доехать из аэропорта без такси?',
-        a: 'Спускайтесь на этаж -2 по указателям «Havaist / Metro». Автобус №12 идет прямо в центр каждые 20 минут. Оплата картой на турникете ($4.50). Экономия на такси — $40!'
+        q: 'Как уехать из аэропорта без такси?',
+        a: 'Спускайтесь на нижний этаж по указателям экспресс-автобусов или метро. Оплата банковской картой или Kaspi QR прямо на входе. Вы сэкономите от 80% стоимости частного трансфера!'
       },
       sim: {
-        q: 'Где купить связь без переплат?',
-        a: 'Не покупайте туристические SIM-карты в аэропорту (+100% наценка). В SoloWay уже активны офлайн-карты, а eSIM можно подключить в 1 клик через приложение.'
+        q: 'Где купить SIM/проездной без переплат?',
+        a: 'Не покупайте физическую SIM-карту в зале прилета с наценкой +100%. SoloWay работает полностью автономно без роуминга, а проездной продается в официальном автомате у входа в метро.'
       },
       food: {
-        q: 'Где поесть со скидкой 60%?',
-        a: 'Идите на улочку Hocapaşa Sokak (300м от вас). Там обедают офисные работники: горячее блюдо и чай обойдутся всего в $5–$6.'
+        q: 'Где поужинать со скидкой и без наценок?',
+        a: 'Отойдите на 150–200 метров от главных туристических площадей в переулки местных мастеров. Выбирайте места без англоязычных зазывал и с открытой витриной блюд.'
       },
       sos: {
-        q: 'Экстренная помощь и дежурные врачи',
-        a: 'Единый номер туристической полиции: 112. Ближайшая круглосуточная дежурная аптека («Nöbetçi Eczane») отмечена на вашей офлайн-карте в 220 метрах.'
+        q: 'Экстренная помощь и дежурные аптеки',
+        a: 'Единый международный номер экстренных служб: 112. Ближайшая дежурная аптека уже загружена в офлайн-базу на расстоянии 180 метров.'
       }
     };
 
@@ -1385,8 +1355,8 @@
         </div>
         <div class="bg-slate-800/95 border border-slate-700 text-slate-200 rounded-2xl rounded-tl-sm p-3 max-w-[90%] space-y-2">
           <p>${item.a}</p>
-          <button onclick="switchTab('nav')" class="text-[11px] bg-sky-500/20 text-sky-300 border border-sky-500/30 px-2.5 py-1 rounded-lg font-bold inline-flex items-center gap-1">
-            <i class="fa-solid fa-location-dot"></i> <span>Показать на карте</span>
+          <button onclick="switchTab('nav')" class="text-[10px] bg-sky-500/20 text-sky-300 border border-sky-500/30 px-2 py-0.5 rounded-lg font-bold inline-flex items-center gap-1">
+            <i class="fa-solid fa-location-dot"></i> Показать на офлайн-карте
           </button>
         </div>
       `;
@@ -1398,44 +1368,38 @@
       setScannerPreset('bazaar');
     }
 
-    // Modal Handlers
-    function triggerReturnToHotel() { document.getElementById('hotel-modal').classList.remove('hidden'); }
-    function closeHotelModal() { document.getElementById('hotel-modal').classList.add('hidden'); }
+    function triggerReturnToHotel() {
+      document.getElementById('hotel-modal').classList.remove('hidden');
+    }
 
-    function openPitchModal() { document.getElementById('pitch-modal').classList.remove('hidden'); }
-    function closePitchModal() { document.getElementById('pitch-modal').classList.add('hidden'); }
+    function closeHotelModal() {
+      document.getElementById('hotel-modal').classList.add('hidden');
+    }
 
-    // Desktop Frame Mode Toggle
     function toggleFrameMode() {
       const body = document.body;
       const btn = document.getElementById('frame-toggle-btn');
       if (body.classList.contains('framed-mode')) {
         body.classList.remove('framed-mode');
         body.classList.add('fullscreen-mode');
-        btn.innerHTML = '<i class="fa-solid fa-mobile-screen mr-1"></i> Рамка смартфона';
+        btn.innerHTML = '<i class="fa-solid fa-mobile-screen"></i> <span>Рамка смартфона</span>';
       } else {
         body.classList.remove('fullscreen-mode');
         body.classList.add('framed-mode');
-        btn.innerHTML = '<i class="fa-solid fa-expand mr-1"></i> На весь экран';
+        btn.innerHTML = '<i class="fa-solid fa-expand"></i> <span>На весь экран</span>';
       }
     }
 
-    // Clock simulation
-    function updateClock() {
-      const now = new Date();
-      const hrs = String(now.getHours()).padStart(2, '0');
-      const mins = String(now.getMinutes()).padStart(2, '0');
-      const clockEl = document.getElementById('live-clock');
-      if (clockEl) clockEl.textContent = `${hrs}:${mins}`;
-    }
-    setInterval(updateClock, 30000);
-    updateClock();
-
-    // Init App
     window.addEventListener('DOMContentLoaded', () => {
       renderTimeline();
+      selectMapPoi('transit');
+      setScannerPreset('menu');
+      // Pre-warm voices
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.getVoices();
+      }
     });
   </script>
 </body>
-
 </html>
+index.html. На экране.
